@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Flex, Row, Col, Dropdown } from 'antd';
 import { useLocation } from 'react-router-dom';
 import service from '../services';
+import DataGraph from '../components/data_graph.tsx';
 
 function Message({ content, source }) {
   return (
@@ -116,9 +117,9 @@ export default function Landing() {
       style={{ width: '100%', minHeight: '100vh' }}
     >
       <Row>
-        <Col className='ai_chat_block' span={12}>
+        <Col className='ai_chat_block' xs={24} lg={12}>
           <Row align='middle'>
-            <Col offset={1} span={5}>
+            <Col offset={1} xs={6} lg={4} xl={4}>
               <img
                 className='chat_logo'
                 width='220'
@@ -126,15 +127,15 @@ export default function Landing() {
                 src='/logo-white-regular.png'
               />
             </Col>
-            <Col span={18}>
-              <h1 className='header_header margin-bottom-00'>
+            <Col xs={17} lg={19} xl={19}>
+              <h1 className='header_header-chat header_header margin-bottom-00'>
                 Energy Moonshot AI
               </h1>
             </Col>
           </Row>
           <Row className='chat'>
-            <Col span={24}>
-              <div className='padding-left-08'>
+            <Col xs={24} lg={{ span: 23, offset: 1 }}>
+              <div>
                 {messages.map(({ source, content }, i) => {
                   return <Message source={source} content={content} key={i} />;
                 })}
@@ -144,8 +145,9 @@ export default function Landing() {
           </Row>
           <Row>
             <Col
-              span={24}
-              className='padding-left-08 padding-bottom-06 padding-top-04'
+              span={22}
+              offset={1}
+              className='padding-bottom-06 padding-top-04'
             >
               <form onSubmit={handleSubmit} style={{ position: 'relative' }}>
                 <input
@@ -177,7 +179,9 @@ export default function Landing() {
             </Col>
           </Row>
         </Col>
-        <Col span={12}>lang</Col>
+        <Col xs={0} lg={12}>
+          <DataGraph />
+        </Col>
       </Row>
     </Flex>
   );

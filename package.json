@@ -18,7 +18,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.18.0",
     "reset-css": "^5.0.2",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "undp-energy-graph": "github:dianaow/energy-graph-viz"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
