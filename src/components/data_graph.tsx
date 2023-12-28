@@ -1,7 +1,10 @@
-import ForceGraph from 'undp-energy-graph';
 import { useEffect } from 'React';
+import ForceGraph from 'undp-energy-graph';
+import DataGraphUi from './data_graph_ui';
 
 export default function DataGraph() {
+  let graph;
+  let graphSearch;
   useEffect(() => {
     async function initGraph() {
       const params = {
@@ -45,8 +48,7 @@ export default function DataGraph() {
           CATEGORY: d.category,
         };
       });
-
-      ForceGraph(
+      graph = ForceGraph(
         { nodes: resultNodesTrunc, links: resultEdges },
         {
           containerSelector: '.graph-container',
@@ -62,14 +64,16 @@ export default function DataGraph() {
           labelVisibility: 'visible',
         },
       );
+      console.log(graph);
     }
     initGraph();
+    console.log(graph);
+    // graphSearch = graph.search;
   }, []);
 
   return (
-    <div
-      className='graph-container'
-      style={{ width: '100%', height: '100%' }}
-    />
+    <div className='graph-container' style={{ width: '100%', height: '100%' }}>
+      <DataGraphUi searchGraph={graphSearch} />
+    </div>
   );
 }

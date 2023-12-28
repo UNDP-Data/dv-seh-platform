@@ -8,30 +8,33 @@ import Chat from './routes/ai_chat';
 
 import 'reset-css';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />,
-    children: [
-      {
-        path: '/',
-        element: <Search />,
-      },
-      {
-        path: '/search',
-        element: <Search />,
-      },
-      {
-        path: '/landing',
-        element: <Landing />,
-      },
-      {
-        path: '/chat',
-        element: <Chat />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <Root />,
+      children: [
+        {
+          path: '/',
+          element: <Search />,
+        },
+        {
+          path: '/search',
+          element: <Search />,
+        },
+        {
+          path: '/landing',
+          element: <Landing />,
+        },
+        {
+          path: '/chat',
+          element: <Chat />,
+        },
+      ],
+    },
+  ],
+  // { basename: '/energy-hub-demo' },
+);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <RouterProvider router={router} />,

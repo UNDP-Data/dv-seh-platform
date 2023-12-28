@@ -1,3 +1,12 @@
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+button:focus {
+  border: none;
+  outline: none;
+}
 .undp-language-select .ant-select-selection-search:before {
   margin-top: 4px;
 }
@@ -268,4 +277,29 @@
 }
 .search_ideas:hover {
   color: #F5F5F5;
+}
+.graph-ui {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
+.graph-ui_button {
+  background: #fff;
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+}
+.graph-ui_button:hover {
+  background: #eee;
+}
+.graph-ui_button:first-child {
+  border-top-right-radius: 10px;
+}
+.ant-btn-primary {
+  background-color: #019A5A;
+}
+.popup-no-padding .ant-popover-inner {
+  padding:0 !important;
 }
