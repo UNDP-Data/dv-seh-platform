@@ -1,0 +1,37 @@
+{
+    "query": "What is sustainable energy and how is it a lever for sustainable development?",
+    "answer": "<h3>Sustainable Energy</h3><blockquote data-id='test-doc-1' cite='https://windeurope.org/intelligence-platform/product/wind-energy-and-economic-recovery-in-europe/'>Sustainable energy refers to forms of energy that are renewable and environmentally friendly, causing minimal or no harm to the ecosystem. The key characteristics of sustainable energy are:\n\n### Renewable Sources\n- **Derived from natural processes** that are continually replenished.\n- Includes energy from the **sun** (solar power), **wind** (wind power), **water** (hydropower), **geothermal sources** (heat from within the earth), and **biomass** (organic materials)</blockquote><h3>Energy Efficiency</h3><blockquote data-id='test-doc-2' cite='https://unsdg.un.org/resources/green-energy-solar-solutions-practice-note-business-operations-strategy/'>Sustainable energy often involves **using energy more efficiently**.\n- Aims to get **more output from the same amount of energy input**, which reduces overall consumption and minimizes waste.\n\n### Economic Viability\n- Some sustainable energy sources may be more expensive upfront but often lead to **lower long-term costs**.\n- Benefits from factors like **low maintenance requirements** and the **absence of fuel costs**.\n\nThe shift towards sustainable energy is crucial for **reducing our carbon footprint**, **mitigating the effects of climate change**, and ensuring a **stable and secure energy future**. Examples of sustainable energy technologies include **solar panels**, **wind turbines**, **hydroelectric power stations**, and **geothermal energy systems**.</blockquote>",
+    "sources": {
+        "test-doc-1": {
+            "title": "Wind energy and economic recovery",
+            "category": "Research Article",
+            "extract": "Low Environmental Impact: Sustainable energy has a lower environmental impact compared to fossil fuels. It emits little to no greenhouse gases and pollutants, thus helping to combat climate change and reduce air pollution.",
+            "link": "https://windeurope.org/intelligence-platform/product/wind-energy-and-economic-recovery-in-europe/",
+            "thumbnail": "https://windeurope.org/wp-content/uploads/flagship-report-2020-cover-thumbnail.jpg"
+        },
+        "test-doc-2": {
+            "title": "Green Energy Solar Solutions by UNDP",
+            "category": "UNDP Publication",
+            "extract": "The shift towards sustainable energy is crucial for reducing our carbon footprint, mitigating the effects of climate change, and ensuring a stable and secure energy future",
+            "link": "https://unsdg.un.org/resources/green-energy-solar-solutions-practice-note-business-operations-strategy",
+            "thumbnail": "https://unsdg.un.org/sites/default/files/2021-12/Cover%20Solar%20Solutions%20Green%20Energy.jpg"
+        }
+    },
+    "prompts": [
+        "Can you analyze and predict the long-term efficiency and output of various renewable energy sources in different geographic regions?",
+        "What are the most promising emerging technologies in sustainable energy that could be viable for large-scale implementation within the next decade?",
+        "How viable is ocean thermal energy for enabling blue economy opportunities in SIDS?"
+    ],
+    "entities": [
+        "Renewable Energy Sources",
+        "Greenhouse Gas Emissions",
+        "Climate Change",
+        "Energy Efficiency",
+        "Fossil Fuels",
+        "Electric Vehicles (EVs)",
+        "Solar Panels and Wind Turbines",
+        "Government Policies and Incentives",
+        "Utility Companies",
+        "Environmental Impact"
+    ]
+}

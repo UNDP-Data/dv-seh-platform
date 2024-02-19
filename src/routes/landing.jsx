@@ -1,4 +1,4 @@
-import React from 'react';
+import { React } from 'react';
 import { Layout, Space, Select, Row, Col } from 'antd';
 import { ChevronDown } from 'lucide-react';
 

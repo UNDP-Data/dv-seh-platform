@@ -1,10 +1,11 @@
-import React from 'react';
+import { React } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './routes/root';
 import Landing from './routes/landing';
 import Search from './routes/ai_search';
 import Chat from './routes/ai_chat';
+import './i18n';
 
 import 'reset-css';
 

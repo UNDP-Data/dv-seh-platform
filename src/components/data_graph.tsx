@@ -1,10 +1,12 @@
-import { useEffect } from 'React';
+import { React, useState, useEffect } from 'react';
 import ForceGraph from 'undp-energy-graph';
+import PropTypes from 'prop-types';
 import DataGraphUi from './data_graph_ui';
 
-export default function DataGraph() {
-  let graph;
-  let graphSearch;
+export default function DataGraph({ setPopupData, setPopupVisible }) {
+  // const [graph, setGraph] = useState({});
+  const [graphSearch, setGraphSearch] = useState(() => {});
+
   useEffect(() => {
     async function initGraph() {
       const params = {
@@ -48,7 +50,7 @@ export default function DataGraph() {
           CATEGORY: d.category,
         };
       });
-      graph = ForceGraph(
+      const instance = ForceGraph(
         { nodes: resultNodesTrunc, links: resultEdges },
         {
           containerSelector: '.graph-container',
@@ -64,16 +66,29 @@ export default function DataGraph() {
           labelVisibility: 'visible',
         },
       );
-      console.log(graph);
+      // setGraph(() => {
+      //   return instance;
+      // });
+      setGraphSearch(() => {
+        return instance.search;
+      });
+      instance.on('nodeClick', e => {
+        console.log(e);
+        setPopupData(e.clickedNodeData);
+        setPopupVisible(true);
+      });
     }
     initGraph();
-    console.log(graph);
-    // graphSearch = graph.search;
   }, []);
 
   return (
     <div className='graph-container' style={{ width: '100%', height: '100%' }}>
-      <DataGraphUi searchGraph={graphSearch} />
+      <DataGraphUi graphSearch={graphSearch} />
     </div>
   );
 }
+
+DataGraph.propTypes = {
+  setPopupData: PropTypes.func,
+  setPopupVisible: PropTypes.func,
+};

@@ -1,16 +1,38 @@
 import { SearchOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Tooltip, Popover, Input, Space, Button } from 'antd';
+import PropTypes from 'prop-types';
 
-const searchInput = function searchInput() {
-  return (
-    <Space.Compact style={{ width: '100%' }}>
-      <Input placeholder='Search' />
-      <Button type='primary' icon={<SearchOutlined />} />
-    </Space.Compact>
-  );
-};
+import { React, useState } from 'react';
 
-export default function DataGraphUi() {
+export default function DataGraphUi({ graphSearch }) {
+  const [searchMessage, setSearchMessage] = useState('');
+
+  const handleSearchMessageChange = event => {
+    setSearchMessage(event.target.value);
+  };
+
+  const submitSearch = () => {
+    graphSearch(searchMessage);
+  };
+
+  const searchInput = () => {
+    return (
+      <Space.Compact style={{ width: '100%' }}>
+        <Input
+          onPressEnter={submitSearch}
+          onChange={handleSearchMessageChange}
+          value={searchMessage}
+          placeholder='Search'
+        />
+        <Button
+          onClick={submitSearch}
+          type='primary'
+          icon={<SearchOutlined />}
+        />
+      </Space.Compact>
+    );
+  };
+
   return (
     <div className='graph-ui'>
       <Popover
@@ -41,3 +63,7 @@ export default function DataGraphUi() {
     </div>
   );
 }
+
+DataGraphUi.propTypes = {
+  graphSearch: PropTypes.func,
+};

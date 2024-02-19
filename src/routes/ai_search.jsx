@@ -42,11 +42,13 @@ export default function Landing() {
       state: {
         messages: [
           {
-            content: message,
+            message: {
+              answer: message,
+            },
             source: 'user',
           },
           {
-            content: responce,
+            message: responce,
             source: 'api',
           },
         ],

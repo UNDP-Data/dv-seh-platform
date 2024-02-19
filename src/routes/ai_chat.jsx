@@ -4,50 +4,55 @@ import { Flex, Row, Col, Dropdown } from 'antd';
 import { useLocation } from 'react-router-dom';
 import service from '../services';
 import DataGraph from '../components/data_graph.tsx';
+import ApiMessage from '../components/api_message.tsx';
+import UserMessage from '../components/user_message.tsx';
+import EntityModal from '../components/entity_modal.tsx';
 
-function Message({ content, source }) {
-  return (
-    <div className={`chat_message chat_message-${source}`}>
-      <div className='message_icon' />
-      <div className='message_text'>{content}</div>
-      <div className='message_interactions'>
-        {source === `api` ? (
-          <>
-            <button
-              type='button'
-              aria-label='like responce'
-              className='message_interaction_button message_interactions_button-like'
-            />
-            <button
-              type='button'
-              aria-label='dislike responce'
-              className='message_interaction_button message_interactions_button-dislike'
-            />
-          </>
-        ) : (
-          ''
-        )}
-      </div>
-    </div>
+function Message({ message, source }) {
+  return source === `api` ? (
+    <ApiMessage message={message} />
+  ) : (
+    <UserMessage message={message} />
   );
 }
 
 Message.propTypes = {
-  content: PropTypes.string,
+  message: PropTypes.shape({
+    answer: PropTypes.string,
+  }),
   source: PropTypes.string,
 };
 
 export default function Landing() {
   const { state } = useLocation();
-
+  const [popupData, setPopupData] = useState({});
+  const [popupVisible, setPopupVisible] = useState(false);
   const [messages, setMessages] = useState(() => {
     return state.messages ? state.messages : [];
   });
-  const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false);
 
+  const [promptSuggestions, setPromptSuggestions] = useState(() => {
+    return state.messages
+      ? state.messages[1].message.prompts.map((prompt, index) => {
+          return {
+            key: index.toString(),
+            label: prompt,
+          };
+        })
+      : [];
+  });
+
+  const [activeEnteties, setActiveEnteties] = useState(() => {
+    return state.messages ? state.messages[1].message.entities : [];
+  });
+
+  const [chatBoxMessage, setChatBoxMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const handleCancel = () => {
+    setPopupVisible(false);
+  };
   const handleChange = event => {
-    setMessage(event.target.value);
+    setChatBoxMessage(event.target.value);
   };
 
   const messagesEndRef = createRef();
@@ -59,56 +64,52 @@ export default function Landing() {
   useEffect(() => scrollToBottom(), [messages]);
 
   async function postMessage(userMessage) {
+    console.log(promptSuggestions);
     setLoading(true);
     let newMessages = messages.concat([
       {
-        content: userMessage,
+        message: {
+          answer: userMessage,
+        },
         source: 'user',
       },
     ]);
     setMessages(newMessages);
-    const responce = await service.askQuestion(userMessage);
+    let responce;
+    try {
+      responce = await service.askQuestion(userMessage);
+    } catch (e) {
+      setLoading(false);
+    }
     newMessages = newMessages.concat([
       {
-        content: responce,
+        message: responce,
         source: 'api',
       },
     ]);
+    setPromptSuggestions(
+      responce.prompts.map((prompt, index) => {
+        return {
+          key: index.toString(),
+          label: prompt,
+        };
+      }),
+    );
+    setActiveEnteties(responce.entities);
     setMessages(newMessages);
     setLoading(false);
-    setMessage('');
+    setChatBoxMessage('');
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (message === '') return;
-    postMessage(message);
+    if (chatBoxMessage === '') return;
+    postMessage(chatBoxMessage);
   }
-
-  let items;
 
   function selectSuggestion(e) {
-    postMessage(items[e.key].label);
+    postMessage(promptSuggestions[e.key].label);
   }
-
-  items = [
-    {
-      key: '0',
-      onClick: selectSuggestion,
-      label:
-        'What is the sum of budgets for active energy-related project for the Latin America and Caribbean region?',
-    },
-    {
-      key: '1',
-      onClick: selectSuggestion,
-      label: 'What renewable energy sources are used in China?',
-    },
-    {
-      key: '2',
-      onClick: selectSuggestion,
-      label: 'What legal acts regulate European green energy?',
-    },
-  ];
 
   return (
     <Flex
@@ -133,16 +134,25 @@ export default function Landing() {
               </h1>
             </Col>
           </Row>
-          <Row className='chat'>
-            <Col xs={24} lg={{ span: 23, offset: 1 }}>
-              <div>
-                {messages.map(({ source, content }, i) => {
-                  return <Message source={source} content={content} key={i} />;
-                })}
-              </div>
-            </Col>
-            <div ref={messagesEndRef} />
-          </Row>
+          <div className='chat-modal-wrap'>
+            <Row className='chat'>
+              <Col xs={24} lg={{ span: 23, offset: 1 }}>
+                <div>
+                  {messages.map(({ source, message }, i) => {
+                    return (
+                      <Message source={source} message={message} key={i} />
+                    );
+                  })}
+                </div>
+              </Col>
+              <div ref={messagesEndRef} />
+            </Row>
+            <EntityModal
+              visible={popupVisible}
+              entity={popupData}
+              close={handleCancel}
+            />
+          </div>
           <Row>
             <Col
               span={22}
@@ -153,7 +163,7 @@ export default function Landing() {
                 <input
                   onChange={handleChange}
                   disabled={loading}
-                  value={message}
+                  value={chatBoxMessage}
                   className={`search_input search_input_chat
                     ${loading ? 'search_input-loading' : ''}`}
                   type='search'
@@ -165,7 +175,10 @@ export default function Landing() {
                   className={`search_button
                     ${loading ? 'search_button-loading' : ''}`}
                 />
-                <Dropdown placement='top' menu={{ items }}>
+                <Dropdown
+                  placement='top'
+                  menu={{ items: promptSuggestions, onClick: selectSuggestion }}
+                >
                   <button
                     aria-label='prompt ideas'
                     type='button'
@@ -180,7 +193,11 @@ export default function Landing() {
           </Row>
         </Col>
         <Col xs={0} lg={12}>
-          <DataGraph />
+          <DataGraph
+            activeEnteties={activeEnteties}
+            setPopupData={setPopupData}
+            setPopupVisible={setPopupVisible}
+          />
         </Col>
       </Row>
     </Flex>
