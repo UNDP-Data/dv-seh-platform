@@ -1,0 +1,24 @@
+[{
+    "entity": "European Union",
+    "category": "Organization",
+    "acronym": "EU",
+    "short description": "Short text description"
+},
+{
+    "entity": "Albania",
+    "category": "Location",
+    "short description": "Short text description"
+},
+{
+    "entity": "United Nations Development Programme",
+    "category": "Organization",
+    "acronym": "UNDP",
+    "short description": "Short text description"
+},
+{
+    "entity": "Sustainable Development Goal",
+    "category": "Organization",
+    "acronym": "SDG",
+    "short description": "Short text description"
+}
+]

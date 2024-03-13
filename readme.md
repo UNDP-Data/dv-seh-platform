@@ -1,11 +1,10 @@
-# Project Title
-#### Project description [Click here to see the interface]({{link to the site here}}).
+# Energy Moonshot AI Frontend
+#### An AI chatbot UI [Click here to see the interface](https://lenseg.github.io/energy-hub-demo/).
 
 ## Table of Contents
 * [Link for the visualization](#section-01)
 * [Deployment](#deployment)
 * [Steps to integrate the vis in static page](#section-02)
-* [Pages on DFP where This Viz is Used](#section-03)
 * [Related Repos](#section-04)
 * [Global CSS Files and Repo](#section-05)
 * [Build With](#section-06)
@@ -16,29 +15,26 @@
 * [Contact](#section-11)
 
 ## Link for the visualization<a name="section-01"></a>
-[{{link to the site here}}]({{link to the site here}})
+[Energy Moonshot AI](https://lenseg.github.io/energy-hub-demo/)
 
-## Deployment<a name="deployment"></a>
-The Production site deployed using Azure Static Web App and work flow can be found [here]({{link to the site here}})
+## Deployment
+<a name="deployment"></a>
+Testing environment being deployed to the [gh-pages](https://github.com/Lenseg/dv-seh-platform/tree/gh-pages) branch
 
-## Steps to Integrating the Visualization in the Data Future Platform or Any Other Page<a name="section-02"></a>
-__All the different view of the visualization and steps to interegrate/embed it__
+<a name="section-02"></a>
+## Steps to Integrating the Visualization in the Data Future Platform or Any Other Page
+__Static build__
 
-Apart from the mentioned `div` above the following `script` and `link` needs to be added to the `head` or in the embed code
-```
-<script defer src="<Link to the Visualization Mentioned Above>/static/js/main.js"></script>
-<link rel="stylesheet" href="https://undp-data.github.io/stylesheets-for-viz/style/mainStyleSheet.css" />
-<link rel="stylesheet" href="https://undp-data.github.io/stylesheets-for-viz/style/StyleForGraphingInterface.css" />
-<link rel="stylesheet" href="https://undp-data.github.io/stylesheets-for-viz/style/StyleForGraph.css" />
-```
+Use `npm run build`
 
-## Pages on DFP Where the Visualization is Used<a name="section-03"></a>
-_All the pages on the DFP or other places like viva topics etc. where this visualization is embeded or used._
+There us no base url or any similar config set
 
-## Related Repos<a name="section-04"></a>
-_List of all the repo that are used in this project as dataset, meta data, css etc._
+<a name="section-04"></a>
+## Related Repos
+* [energy-graph-viz](https://github.com/dianaow/energy-graph-viz/) - node graph visualisation
 
-## Global CSS for UI and Graphs<a name="section-05"></a>
+<a name="section-05"></a>
+## Global CSS for UI and Graphs
 __Git Repo__: https://github.com/UNDP-Data/stylesheets-for-viz
 
 __Link for stylesheets__
@@ -46,10 +42,14 @@ __Link for stylesheets__
 * https://undp-data.github.io/stylesheets-for-viz/style/StyleForGraphingInterface.css
 * https://undp-data.github.io/stylesheets-for-viz/style/StyleForGraph.css
 
-## Build with<a name="section-06"></a>
-_All the main library/frameworks used in the project_
+<a name="section-06"></a>
+## Build with
+* React ^18.0
+* Antd ^5.11
+* i18next
 
-## Installation<a name="section-07"></a>
+<a name="section-07"></a>
+## Installation
 This project uses `npm`. For installation you will need to install `node` and `npm`, if you don't already have it. `node` and `npm` can be installed from [here](https://nodejs.org/en/download/).
 
 To install the project, simply clone the the repo and them run `npm install` in the project folder. You can use terminal on Mac and Command Prompt on Windows.
@@ -81,4 +81,4 @@ This project uses ESLint integrated with prettier, which verifies and formats yo
 This project is build in Visual Studio Code, therefore the project is already set up to work with. Install it from [here](https://code.visualstudio.com/) and then install this [eslint plugin](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and you should be good to go.
 
 ## Contact<a name="section-11"></a>
-_name and email id of the author_
+_Last editor Anton Stepanenkov - Lenseg1@gmail.com_

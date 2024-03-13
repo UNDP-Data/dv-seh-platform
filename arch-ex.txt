@@ -1,0 +1,11 @@
+export default function ForceGraph (data, options){
+  return {
+    /* public data update  method */
+    update: ({nodes, links}) => {},
+    /* public methods that (correspond to required functionality) */
+    search: (searchString) => {},
+    filter: (options) => {},
+    /* event subscription method, provides interface for graph specific events e.g. click on node */
+    on: ({eventName, callback}) => {},
+  }
+}
