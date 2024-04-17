@@ -30,6 +30,7 @@ export default function Landing() {
   const [messages, setMessages] = useState(() => {
     return state.messages ? state.messages : [];
   });
+  const sessionId = state && state.id ? state.id : null;
 
   const [promptSuggestions, setPromptSuggestions] = useState(() => {
     return state.messages
@@ -64,7 +65,7 @@ export default function Landing() {
   useEffect(() => scrollToBottom(), [messages]);
 
   async function postMessage(userMessage) {
-    console.log(promptSuggestions);
+    // console.log(promptSuggestions);
     setLoading(true);
     let newMessages = messages.concat([
       {
@@ -77,7 +78,8 @@ export default function Landing() {
     setMessages(newMessages);
     let responce;
     try {
-      responce = await service.askQuestion(userMessage);
+      // const sessionId = await service.askQuestion(userMessage, '');
+      responce = await service.askQuestion(userMessage, sessionId);
     } catch (e) {
       setLoading(false);
     }

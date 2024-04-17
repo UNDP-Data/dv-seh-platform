@@ -37,7 +37,8 @@ export default function Landing() {
   async function handleSubmit(event) {
     event.preventDefault();
     toggleLoading();
-    const responce = await service.askQuestion(message);
+    const sessionId = await service.askQuestion(message, '');
+    const responce = await service.askQuestion(message, sessionId);
     navigate('/chat', {
       state: {
         messages: [
@@ -52,6 +53,7 @@ export default function Landing() {
             source: 'api',
           },
         ],
+        id: sessionId,
       },
     });
   }
