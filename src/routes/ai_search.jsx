@@ -37,8 +37,9 @@ export default function Landing() {
   async function handleSubmit(event) {
     event.preventDefault();
     toggleLoading();
-    const sessionId = await service.askQuestion(message, '');
-    const responce = await service.askQuestion(message, sessionId);
+    const partialResponse = await service.askQuestion(message, 'partial');
+    console.log('Partial response--', partialResponse);
+    const responce = await service.askQuestion(message, 'full');
     navigate('/chat', {
       state: {
         messages: [
@@ -53,7 +54,6 @@ export default function Landing() {
             source: 'api',
           },
         ],
-        id: sessionId,
       },
     });
   }

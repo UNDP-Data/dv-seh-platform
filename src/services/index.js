@@ -8,7 +8,7 @@ import axios from 'axios';
 //   });
 // }
 
-async function askQuestion(query, id) {
+async function askQuestion(query, type) {
   // await timeout(5000);
   const respDef = await axios.get('/api_example.json');
   const resp = await axios.post(
@@ -16,7 +16,7 @@ async function askQuestion(query, id) {
     {
       query,
       locator_code: 'en',
-      session_id: id, // Added new parameter session ID
+      query_type: type, // query_type
     },
     {
       headers: {
@@ -24,9 +24,6 @@ async function askQuestion(query, id) {
       },
     },
   );
-  if (id === '') {
-    return resp.data.session_id;
-  }
   // respDef.data.answer = resp.data.answers[1].value; commenting as response data seems to be changed -- Lasya
   respDef.data.answer = resp.data.answer;
   respDef.data.sources = resp.data.excerpts_dict;

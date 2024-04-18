@@ -30,7 +30,6 @@ export default function Landing() {
   const [messages, setMessages] = useState(() => {
     return state.messages ? state.messages : [];
   });
-  const sessionId = state && state.id ? state.id : null;
 
   const [promptSuggestions, setPromptSuggestions] = useState(() => {
     return state.messages
@@ -78,8 +77,9 @@ export default function Landing() {
     setMessages(newMessages);
     let responce;
     try {
-      // const sessionId = await service.askQuestion(userMessage, '');
-      responce = await service.askQuestion(userMessage, sessionId);
+      const partialResponse = await service.askQuestion(userMessage, 'partial');
+      console.log('partial response-----', partialResponse);
+      responce = await service.askQuestion(userMessage, 'full');
     } catch (e) {
       setLoading(false);
     }
@@ -89,6 +89,7 @@ export default function Landing() {
         source: 'api',
       },
     ]);
+
     setPromptSuggestions(
       responce.prompts.map((prompt, index) => {
         return {
