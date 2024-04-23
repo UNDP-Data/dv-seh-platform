@@ -362,7 +362,7 @@ button:focus {
   max-height: 400px;
   max-width: 550px;
   overflow-y: scroll;
-  position: absolute;
+  position: fixed;
   bottom: calc(86px + 3rem);
   left: calc(50% - 2rem);
   padding: 1rem 1.5rem;
