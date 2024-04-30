@@ -3,7 +3,11 @@ import ForceGraph from 'graph-viz';
 import PropTypes from 'prop-types';
 import DataGraphUi from './data_graph_ui';
 
-export default function DataGraph({ setPopupData, setPopupVisible }) {
+export default function DataGraph({
+  activeEnteties,
+  setPopupData,
+  setPopupVisible,
+}) {
   // const [graph, setGraph] = useState({});
   const [graphSearch, setGraphSearch] = useState(() => {});
 
@@ -20,7 +24,7 @@ export default function DataGraph({ setPopupData, setPopupVisible }) {
       /* replace /energy-entities-small.json 
           with /energy-entities.json file
           when larger graph is needed with all entities */
-
+      console.log('----activeEnteties----', activeEnteties);
       const [response1, response2] = await Promise.all([
         fetch('/energy-entities-small.json', params),
         fetch('/energy-relations-small.json', params),
@@ -124,6 +128,7 @@ export default function DataGraph({ setPopupData, setPopupVisible }) {
 }
 
 DataGraph.propTypes = {
+  activeEnteties: PropTypes.arrayOf(PropTypes.string),
   setPopupData: PropTypes.func,
   setPopupVisible: PropTypes.func,
 };

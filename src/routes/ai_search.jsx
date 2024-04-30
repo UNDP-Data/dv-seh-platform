@@ -40,6 +40,7 @@ export default function Landing() {
     const partialResponse = await service.askQuestion(message, 'partial');
     console.log('Partial response--', partialResponse);
     const responce = await service.askQuestion(message, 'full');
+    console.log('Full response--', responce);
     navigate('/chat', {
       state: {
         messages: [

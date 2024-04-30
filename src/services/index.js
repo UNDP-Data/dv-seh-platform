@@ -27,7 +27,8 @@ async function askQuestion(query, type) {
   // respDef.data.answer = resp.data.answers[1].value; commenting as response data seems to be changed -- Lasya
   respDef.data.answer = resp.data.answer;
   respDef.data.sources = resp.data.excerpts_dict;
-  respDef.data.prompts = resp.data.query_ideas[0].split('\n');
+  respDef.data.prompts = resp.data.query_ideas;
+  respDef.data.entities = resp.data.entities;
   return respDef.data;
 }
 
