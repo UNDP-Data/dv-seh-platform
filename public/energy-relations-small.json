@@ -1,21 +1,66 @@
-[{
-     "relation": "focuses_on",
-     "subject": "Albania",
-     "object": "Sustainable Development Goal",
+{ "Albania": [{
+     "Relation": "focuses_on",
+     "Object": "Sustainable Development Goal",
      "description": "This country programme reflects the comparative advantages of UNDP in supporting national reforms and upholding values of justice, human rights, equity and gender equality, through coordinated multisectoral approaches that facilitate systemic reforms.",
      "relevance": 8
- },
- {
-     "relation": "in",
-     "subject": "Albania",
-     "object": "European Union",
+    
+    },
+    {
+     "Relation": "in",
+     "Object": "European Union",
      "description": "In March 2020, the European Union opened accession negotiations. The country\u2019s vision of sustainable development, the key drivers for reforms and political and public priorities, are accession to the European Union, sustainable economic growth and inclusive prosperity.",
      "relevance": 9
- },
+    }],
+    "United Nations Development Programme":[
  {
-     "relation": "supports",
-     "subject": "United Nations Development Programme",
-     "object": "European Union",
+     "Relation": "supports",
+     "Object": "European Union",
      "description": "UNDP supports the aspirations of European Union to join the European Union and attain the outcomes of the United Nations Sustainable Development Cooperation Framework (UNSDCF).",
      "relevance": 8
- }]
+ }],
+ "sustainable energy": [
+    {
+        "Relation": "provides",
+        "Object": "Solar power",
+        "Description": "Solar power provides sustainable energy by harnessing the sun's energy and converting it into electricity."
+    },
+    {
+        "Relation": "generates",
+        "Object": "Wind power",
+        "Description": "Wind power generates sustainable energy by using wind turbines to convert wind energy into electricity."
+    },
+    {
+        "Relation": "produces",
+        "Object": "Hydroelectric power",
+        "Description": "Hydroelectric power produces sustainable energy by utilizing the gravitational force of flowing or falling water to generate electricity."
+    },
+    {
+        "Relation": "utilizes",
+        "Object": "Geothermal energy",
+        "Description": "Geothermal energy utilizes the heat from the Earth's core to generate sustainable energy and produce electricity."
+    }
+],
+"Solar power": [
+    {
+        "Relation": "uses",
+        "Object": "Solar panel",
+        "Description": "Solar power is generated using solar panels that convert sunlight into electricity."
+    },
+    {
+        "Relation": "produces",
+        "Object": "Solar energy",
+        "Description": "Solar power produces clean and renewable energy from the sun."
+    },
+    {
+        "Relation": "utilizes",
+        "Object": "Solar farm",
+        "Description": "Solar power can be generated on a large scale using solar farms that consist of multiple solar panels."
+    },
+    {
+        "Relation": "depends on",
+        "Object": "Solar radiation",
+        "Description": "Solar power relies on the availability of solar radiation, which is the electromagnetic radiation emitted by the sun."
+    }
+]
+
+}

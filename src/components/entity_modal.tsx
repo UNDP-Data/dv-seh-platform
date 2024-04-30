@@ -16,7 +16,7 @@ export default function EntityModal({ entity, visible, close }) {
           aria-label='close modal'
         />
       </div>
-      <div> kek </div>
+      <div> Information to be shown... </div>
     </div>
   );
 }

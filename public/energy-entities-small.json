@@ -20,5 +20,39 @@
     "category": "Organization",
     "acronym": "SDG",
     "short description": "Short text description"
+},{
+    "entity": "sustainable energy",
+    "category": "concept"
+},
+{
+    "entity": "Solar power",
+    "category": "Renewable energy"
+},
+{
+    "entity": "Wind power",
+    "category": "Renewable energy"
+},{
+    "entity": "Hydroelectric power",
+    "category": "Renewable energy"
+},
+{
+    "entity": "Geothermal energy",
+    "category": "Renewable energy"
+},
+{
+    "entity": "Solar panel",
+    "category": "Technology"
+},
+{
+    "entity": "Solar energy",
+    "category": "Renewable energy"
+},
+{
+    "entity": "Solar farm",
+    "category": "Infrastructure"
+},
+{
+    "entity": "Solar radiation",
+    "category": "Natural phenomenon"
 }
 ]

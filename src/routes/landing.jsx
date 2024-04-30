@@ -146,6 +146,7 @@ export default function Landing() {
             <a
               href='#content'
               className='text-white text-center margin-left-auto margin-right-auto margin-bottom-08'
+              aria-label='Scroll down to content'
             >
               <ChevronDown size={64} />
             </a>
