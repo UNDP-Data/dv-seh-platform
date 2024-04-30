@@ -17,6 +17,9 @@ export default function DataGraph({ setPopupData, setPopupVisible }) {
           'Content-Type': 'application/json',
         },
       };
+      /* replace /energy-entities-small.json 
+          with /energy-entities.json file
+          when larger graph is needed with all entities */
 
       const [response1, response2] = await Promise.all([
         fetch('/energy-entities-small.json', params),
@@ -43,6 +46,8 @@ export default function DataGraph({ setPopupData, setPopupVisible }) {
         '#B9AAC8',
         '#F08519',
       ]; */
+
+      // below func is for future puporse when category is used
       const resultNodesTrunc = resultNodes.map(d => {
         return {
           NAME: d.entity,
@@ -50,6 +55,9 @@ export default function DataGraph({ setPopupData, setPopupVisible }) {
         };
       });
 
+      /* The variable transformedData is utilized 
+        to adapt the current dummy data format 
+        to the expected input structure by ForceGraph func. */
       const transformedData = [];
 
       Object.keys(resultEdges).forEach(subject => {
@@ -93,7 +101,6 @@ export default function DataGraph({ setPopupData, setPopupVisible }) {
           },
         },
       );
-      console.log('-----instance------', instance);
       // setGraph(() => {
       //   return instance;
       // });
