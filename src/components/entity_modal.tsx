@@ -11,7 +11,7 @@ export default function EntityModal({ entity, visible, close }) {
         <h3 className='modal_entities_header'>{entity.entity}</h3>
         <button
           onClick={close}
-          className='modal_close'
+          className='modal_entity_close'
           type='button'
           aria-label='close modal'
         />

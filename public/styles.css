@@ -405,6 +405,18 @@ button:focus {
 }
 .modal_close {
   top: -6px;
+  right: -15px;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: #000;
+  mask-image: url('/cancel.svg');
+  -webkit-mask-image: url('/cancel.svg');
+  mask-size: 100%;
+  -webkit-mask-size: 100%;
+}
+.modal_entity_close {
+  top: -6px;
   right: 730px;
   position: relative;
   width: 24px;
