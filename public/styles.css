@@ -405,7 +405,7 @@ button:focus {
 }
 .modal_close {
   top: -6px;
-  right: -15px;
+  right: 730px;
   position: relative;
   width: 24px;
   height: 24px;
@@ -419,7 +419,7 @@ button:focus {
   background-color: #1F1F1F;
 }
 .modal_entities {
-  position: absolute;
+  position: fixed;
   top: 20px;
   bottom: 20px;
   left: 3.5%;

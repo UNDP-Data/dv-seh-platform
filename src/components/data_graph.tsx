@@ -94,7 +94,7 @@ export default function DataGraph({
           },
           labelStyles: {
             visibility: 'visible',
-            label: 'entity',
+            label: 'NAME',
             edge: {
               visibility: 'hidden',
               label: 'Relation',
