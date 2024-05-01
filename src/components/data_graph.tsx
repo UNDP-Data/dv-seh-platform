@@ -52,12 +52,12 @@ export default function DataGraph({
       ]; */
 
       // below func is for future puporse when category is used
-      const resultNodesTrunc = resultNodes.map(d => {
+      /* const resultNodesTrunc = resultNodes.map(d => {
         return {
-          NAME: d.entity,
-          CATEGORY: d.category,
+          entity: d.entity,
+          category: d.category,
         };
-      });
+      }); */
 
       /* The variable transformedData is utilized 
         to adapt the current dummy data format 
@@ -77,11 +77,11 @@ export default function DataGraph({
       });
 
       const instance = ForceGraph(
-        { nodes: resultNodesTrunc, links: resultEdges },
+        { nodes: resultNodes, links: resultEdges },
 
         {
           containerSelector: '.graph-container',
-          nodeId: 'NAME',
+          nodeId: 'entity',
           sourceId: 'Subject',
           targetId: 'Object',
           width: window.innerWidth,
@@ -94,7 +94,7 @@ export default function DataGraph({
           },
           labelStyles: {
             visibility: 'visible',
-            label: 'NAME',
+            label: 'entity',
             edge: {
               visibility: 'hidden',
               label: 'Relation',
