@@ -37,7 +37,10 @@ export default function Landing() {
   async function handleSubmit(event) {
     event.preventDefault();
     toggleLoading();
-    const responce = await service.askQuestion(message);
+    const partialResponse = await service.askQuestion(message, 'partial');
+    console.log('Partial response--', partialResponse);
+    const responce = await service.askQuestion(message, 'full');
+    console.log('Full response--', responce);
     navigate('/chat', {
       state: {
         messages: [

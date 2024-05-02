@@ -8,22 +8,22 @@ export default function EntityModal({ entity, visible, close }) {
         ${visible ? 'modal-visible' : 'modal-hidden'}`}
     >
       <div className='modal_header'>
-        <h3 className='modal_entities_header'>{entity.NAME}</h3>
+        <h3 className='modal_entities_header'>{entity.entity}</h3>
         <button
           onClick={close}
-          className='modal_close'
+          className='modal_entity_close'
           type='button'
           aria-label='close modal'
         />
       </div>
-      <div> kek </div>
+      <div> Information to be shown... </div>
     </div>
   );
 }
 
 EntityModal.propTypes = {
   entity: PropTypes.shape({
-    NAME: PropTypes.string,
+    entity: PropTypes.string,
   }),
   visible: PropTypes.bool,
   close: PropTypes.func,

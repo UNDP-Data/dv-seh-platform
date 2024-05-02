@@ -1,134 +1,266 @@
 [
-  {
-    "entity": "Inequality Index",
-    "category": "Skill"
-  },
-  {
-    "entity": "UNDP",
-    "category": "Organization"
-  },
-  {
-    "entity": "European Union",
-    "category": "Organization",
-    "acronym": "EU"
-  },
-  {
-    "entity": "Albania",
-    "category": "Location"
-  },
-  {
-    "entity": "United Nations Development Programme",
-    "category": "Organization",
-    "acronym": "UNDP"
-  },
-  {
-    "entity": "Human Development Index",
-    "category": "Skill"
-  },
-  {
-    "entity": "English",
-    "category": "Skill"
-  },
-  {
-    "entity": "Sustainable Development Goal",
-    "category": "Strategy"
-  },
-  {
-    "entity": "New York",
-    "category": "Location"
-  },
-  {
-    "entity": "National Strategy for Development and Integration",
-    "category": "Strategy"
-  },
-  {
-    "entity": "United",
-    "category": "Organization"
-  },
-  {
-    "entity": "United Nations Population Fund",
-    "category": "Organization",
-    "acronym": "UNFPA"
-  },
-  {
-    "entity": "Agenda for Sustainable Development",
-    "category": "Strategy"
-  },
-  {
-    "entity": "United Nations Office for Project Services",
-    "category": "Organization",
-    "acronym": "UNOPS"
-  },
-  {
-    "entity": "Agenda",
-    "category": "Event"
-  },
-  {
-    "entity": "Sustainable Development Goals",
-    "category": "Strategy",
-    "acronym": "SDGs"
-  },
-  {
-    "entity": "United Nations Sustainable Development Cooperation Framework",
-    "category": "Project",
-    "acronym": "UNSDCF"
-  },
-  {
-    "entity": "Roma",
-    "category": "Person"
-  },
-  {
-    "entity": "Egyptian",
-    "category": "Person"
-  },
-  {
-    "entity": "2030 Agenda",
-    "category": "Event"
-  },
-  {
-    "entity": "United Nations",
-    "category": "Organization",
-    "acronym": "UN"
-  },
-  {
-    "entity": "UNSDCF",
-    "category": "Project"
-  },
-  {
-    "entity": "European Union Civil Protection Mechanism",
-    "category": "Project"
-  },
-  {
-    "entity": "Western Balkan Regional Economic Area",
-    "category": "Location"
-  },
-  {
-    "entity": "Nations",
-    "category": "Organization"
-  },
-  {
-    "entity": "People \u2019 s Advocate",
-    "category": "Person"
-  },
-  {
-    "entity": "Government",
-    "category": "Organization"
-  },
-  {
-    "entity": "Commissioners for Information and Data Protection and Protection from Discrimination",
-    "category": "Organization"
-  },
-  {
-    "entity": "United Nations agencies",
-    "category": "Organization"
-  },
-  {
-    "entity": "Executive Board",
-    "category": "Organization"
-  },
-  {
-    "entity": "National Statistical Office",
-    "category": "Organization",
-    "acronym": "NSO"
-  }
-]
+          {
+              "entity": "sustainable energy",
+              "category": "concept"
+          },
+          {
+              "entity": "Solar power",
+              "category": "Renewable energy"
+          },
+          {
+              "entity": "Wind power",
+              "category": "Renewable energy"
+          },
+          {
+              "entity": "Hydroelectric power",
+              "category": "Renewable energy"
+          },
+          {
+              "entity": "Geothermal energy",
+              "category": "Renewable energy"
+          },
+          {
+              "entity": "Solar panel",
+              "category": "Technology"
+          },
+          {
+              "entity": "Solar energy",
+              "category": "Renewable energy"
+          },
+          {
+              "entity": "Solar farm",
+              "category": "Infrastructure"
+          },
+          {
+              "entity": "Solar radiation",
+              "category": "Natural phenomenon"
+          },
+          {
+              "entity": "Grid integration",
+              "category": "Power systems"
+          },
+          {
+              "entity": "Offshore wind farm",
+              "category": "Wind power projects"
+          },
+          {
+              "entity": "Water",
+              "category": "Natural Resource"
+          },
+          {
+              "entity": "Turbine",
+              "category": "Mechanical Device"
+          },
+          {
+              "entity": "Dam",
+              "category": "Infrastructure"
+          },
+          {
+              "entity": "Generator",
+              "category": "Electrical Device"
+          },
+          {
+              "entity": "Geothermal power plant",
+              "category": "Infrastructure"
+          },
+          {
+              "entity": "Geothermal heat pump",
+              "category": "Technology"
+          },
+          {
+              "entity": "Geothermal reservoir",
+              "category": "Natural resource"
+          },
+          {
+              "entity": "Geothermal energy association",
+              "category": "Organization"
+          },
+          {
+              "entity": "Battery",
+              "category": "Energy Storage"
+          },
+          {
+              "entity": "Inverter",
+              "category": "Power Conversion"
+          },
+          {
+              "entity": "Photovoltaic Cell",
+              "category": "Solar Technology"
+          },
+          {
+              "entity": "Mounting System",
+              "category": "Installation"
+          },
+          {
+              "entity": "Photovoltaic cells",
+              "category": "Technology"
+          },
+          {
+              "entity": "Solar panels",
+              "category": "Technology"
+          },
+          {
+              "entity": "Solar power plants",
+              "category": "Infrastructure"
+          },
+          {
+              "entity": "Electricity grid",
+              "category": "Infrastructure"
+          },
+          {
+              "entity": "Renewable energy",
+              "category": "Concept"
+          },
+          {
+              "entity": "Environmental impact",
+              "category": "Issue"
+          },
+          {
+              "entity": "Sun",
+              "category": "Celestial body"
+          },
+          {
+              "entity": "Atmosphere",
+              "category": "Environmental component"
+          },
+          {
+              "entity": "Clouds",
+              "category": "Weather phenomenon"
+          },
+          {
+              "entity": "Earth",
+              "category": "Planet"
+          },
+          {
+              "entity": "Wind",
+              "category": "Renewable Energy Source"
+          },
+          {
+              "entity": "Generator",
+              "category": "Power Generation Equipment"
+          },
+          {
+              "entity": "Blade",
+              "category": "Component"
+          },
+          {
+              "entity": "Control System",
+              "category": "Automation Technology"
+          },
+          {
+              "entity": "Renewable energy sources",
+              "category": "Energy"
+          },
+          {
+              "entity": "Smart grid",
+              "category": "Technology"
+          },
+          {
+              "entity": "Energy storage",
+              "category": "Technology"
+          },
+          {
+              "entity": "Electric vehicles",
+              "category": "Transportation"
+          },
+          {
+              "entity": "Wind turbine",
+              "category": "Equipment"
+          },
+          {
+              "entity": "Underwater cable",
+              "category": "Infrastructure"
+          },
+          {
+              "entity": "Power grid",
+              "category": "Infrastructure"
+          },
+          {
+              "entity": "Marine life",
+              "category": "Environment"
+          },
+          {
+              "entity": "Hydrogen",
+              "category": "Element"
+          },
+          {
+              "entity": "Fish",
+              "category": "Animal"
+          },
+          {
+              "entity": "Boat",
+              "category": "Transportation"
+          },
+          {
+              "entity": "Ice",
+              "category": "Solid"
+          },
+          {
+              "entity": "Blades",
+              "category": "Turbine Component"
+          },
+          {
+              "entity": "Control System",
+              "category": "Turbine Component"
+          },
+          {
+              "entity": "River",
+              "category": "Water"
+          },
+          {
+              "entity": "Power Plant",
+              "category": "Infrastructure"
+          },
+          {
+              "entity": "Reservoir",
+              "category": "Water"
+          },
+          {
+              "entity": "Turbine",
+              "category": "Equipment"
+          },
+          {
+              "entity": "Transformer",
+              "category": "Equipment"
+          },
+          {
+              "entity": "Control Panel",
+              "category": "Equipment"
+          },
+          {
+              "entity": "Power Grid",
+              "category": "Infrastructure"
+          },
+          {
+              "entity": "Geothermal power plant",
+              "category": "Power Plant"
+          },
+          {
+              "entity": "Geothermal energy",
+              "category": "Renewable Energy"
+          },
+          {
+              "entity": "Heat exchanger",
+              "category": "Equipment"
+          },
+          {
+              "entity": "Geothermal reservoir",
+              "category": "Underground Formation"
+          },
+          {
+              "entity": "Ground source heat pump",
+              "category": "Heating and cooling system"
+          },
+          {
+              "entity": "Heat exchanger",
+              "category": "Thermal engineering"
+          },
+          {
+              "entity": "Renewable heating",
+              "category": "Sustainable energy"
+          },
+          {
+              "entity": "Geothermal gradient",
+              "category": "Geology"
+          }
+      ]

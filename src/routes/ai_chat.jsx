@@ -64,7 +64,7 @@ export default function Landing() {
   useEffect(() => scrollToBottom(), [messages]);
 
   async function postMessage(userMessage) {
-    console.log(promptSuggestions);
+    // console.log(promptSuggestions);
     setLoading(true);
     let newMessages = messages.concat([
       {
@@ -77,7 +77,9 @@ export default function Landing() {
     setMessages(newMessages);
     let responce;
     try {
-      responce = await service.askQuestion(userMessage);
+      const partialResponse = await service.askQuestion(userMessage, 'partial');
+      console.log('partial response-----', partialResponse);
+      responce = await service.askQuestion(userMessage, 'full');
     } catch (e) {
       setLoading(false);
     }
@@ -87,6 +89,7 @@ export default function Landing() {
         source: 'api',
       },
     ]);
+
     setPromptSuggestions(
       responce.prompts.map((prompt, index) => {
         return {

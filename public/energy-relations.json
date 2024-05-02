@@ -1,114 +1,408 @@
-[
-  {
-    "Relation": "focuses_on",
-    "Subject": "Albania",
-    "Object": "Sustainable Development Goal",
-    "Description": "This country programme reflects the comparative advantages of UNDP in supporting national reforms and upholding values of justice, human rights, equity and gender equality, through coordinated multisectoral approaches that facilitate systemic reforms.",
-    "Relevance": 8
-  },
-  {
-    "Relation": "in",
-    "Subject": "Albania",
-    "Object": "European Union",
-    "Description": "In March 2020, the European Union opened accession negotiations. The country\u2019s vision of sustainable development, the key drivers for reforms and political and public priorities, are accession to the European Union, sustainable economic growth and inclusive prosperity.",
-    "Relevance": 9
-  },
-  {
-    "Relation": "supports",
-    "Subject": "UNDP",
-    "Object": "European Union",
-    "Description": "UNDP supports the aspirations of European Union to join the European Union and attain the outcomes of the United Nations Sustainable Development Cooperation Framework (UNSDCF).",
-    "Relevance": 8
-  },
-  {
-    "Relation": "supports",
-    "Subject": "UNDP",
-    "Object": "Albania",
-    "Description": "UNDP support to development remains highly relevant in Albania. It is viewed as an innovative thought leader drawing on international experiences, with the ability to convene different stakeholders underpinning its integrator role for the 2030 Agenda.",
-    "Relevance": 9
-  },
-  {
-    "Relation": "focuses_on",
-    "Subject": "UNDP",
-    "Object": "Sustainable Development Goals",
-    "Description": "UNDP focuses on the Sustainable Development Goals (SDGs) as part of its country programme.",
-    "Relevance": 7
-  },
-  {
-    "Relation": "partners_with",
-    "Subject": "UNDP",
-    "Object": "United Nations agencies",
-    "Description": "UNDP partners with United Nations agencies on joint programmes related to leaving no one behind, strategic policy options for Sustainable Development Goal financing and ending violence against.",
-    "Relevance": 6
-  },
-  {
-    "Relation": "supports",
-    "Subject": "UNDP",
-    "Object": "Sustainable Development Goals",
-    "Description": "UNDP will support employment measures for vulnerable groups, integrate small and medium-sized enterprises in global value chains, and support civil society to increase women\u2019s access to careers in science, technology, engineering and mathematics.",
-    "Relevance": 8
-  },
-  {
-    "Relation": "partners_with",
-    "Subject": "UNDP",
-    "Object": "United Nations",
-    "Description": "Partnering with United Nations agencies, UNDP will implement programmes on a green circular economy and sustainable economic.",
-    "Relevance": 7
-  },
-  {
-    "Relation": "focuses_on",
-    "Subject": "UNDP",
-    "Object": "Western Balkan Regional Economic Area",
-    "Description": "UNDP will focus on integrated solutions that address cross-cutting problems, i.e., identifying nature-based solutions that support the transition to a clean green economy, promote ecotourism and create new jobs in competitive sectors within the Western Balkan Regional Economic Area.",
-    "Relevance": 9
-  },
-  {
-    "Relation": "addresses",
-    "Subject": "UNDP",
-    "Object": "Albania",
-    "Description": "With Albania positioning itself as a unifying actor for regional cooperation, security and stability, and taking the initial steps to establish the national disaster risk management system as a requirement to join the European Union Civil Protection Mechanism, UNDP will continue to promote knowledge-sharing and relevant practices across the subregion.",
-    "Relevance": 8
-  },
-  {
-    "Relation": "contributes_to",
-    "Subject": "UNDP",
-    "Object": "UNSDCF",
-    "Description": "These are translated into four UNSDCF outcomes, fully adopted by UNDP and underpinned by five cross-cutting principles of human rights; gender equality; inclusion and equality; transparent civic participation; and innovation.",
-    "Relevance": 7
-  },
-  {
-    "Relation": "assists",
-    "Subject": "UNDP",
-    "Object": "Government",
-    "Description": "To contribute to a strengthened risk and disaster management system, UNDP will assist the Government in driving policies and actions that focus on prevention and reduction of disaster-related risks, increasing resilience of infrastructures, ecosystems and society, and enabling adaptive capacities, all as a means to reduce the long-term vulnerability of the population and protect development investments, particularly in at-risk areas.",
-    "Relevance": 9
-  },
-  {
-    "Relation": "supports",
-    "Subject": "UNDP",
-    "Object": "Government",
-    "Description": "UNDP will support the Government to address structural and systemic barriers to gender equality and women\u2019s empowerment in policy formulation and implementation, and to generate quality gender-disaggregated data for targeted, informed investments and quantifying of results.",
-    "Relevance": 8
-  },
-  {
-    "Relation": "partners_with",
-    "Subject": "UNDP",
-    "Object": "United Nations agencies",
-    "Description": "UNDP will continue to work closely with existing donors, vertical funds and United Nations agencies, diversifying funding sources by partnering with new donors including on an integrated national finance framework.",
-    "Relevance": 9
-  },
-  {
-    "Relation": "supports",
-    "Subject": "UNDP",
-    "Object": "Albania",
-    "Description": "Natural or man-made hazards, with insufficient institutional and local preparedness to respond, can impact the ability of UNDP to support Albania in delivering its development priorities.",
-    "Relevance": 6
-  },
-  {
-    "Relation": "collaborates_with",
-    "Subject": "Government",
-    "Object": "United Nations",
-    "Description": "UNDP will participate in joint Government\u2013United Nations coordination mechanisms.",
-    "Relevance": 8
-  }
-]
+{
+          "sustainable energy": [
+              {
+                  "Relation": "provides",
+                  "Object": "Solar power",
+                  "Description": "Solar power provides sustainable energy by harnessing the sun's energy and converting it into electricity."
+              },
+              {
+                  "Relation": "generates",
+                  "Object": "Wind power",
+                  "Description": "Wind power generates sustainable energy by using wind turbines to convert wind energy into electricity."
+              },
+              {
+                  "Relation": "produces",
+                  "Object": "Hydroelectric power",
+                  "Description": "Hydroelectric power produces sustainable energy by utilizing the gravitational force of flowing or falling water to generate electricity."
+              },
+              {
+                  "Relation": "utilizes",
+                  "Object": "Geothermal energy",
+                  "Description": "Geothermal energy utilizes the heat from the Earth's core to generate sustainable energy and produce electricity."
+              }
+          ],
+          "Solar power": [
+              {
+                  "Relation": "uses",
+                  "Object": "Solar panel",
+                  "Description": "Solar power is generated using solar panels that convert sunlight into electricity."
+              },
+              {
+                  "Relation": "produces",
+                  "Object": "Solar energy",
+                  "Description": "Solar power produces clean and renewable energy from the sun."
+              },
+              {
+                  "Relation": "utilizes",
+                  "Object": "Solar farm",
+                  "Description": "Solar power can be generated on a large scale using solar farms that consist of multiple solar panels."
+              },
+              {
+                  "Relation": "depends on",
+                  "Object": "Solar radiation",
+                  "Description": "Solar power relies on the availability of solar radiation, which is the electromagnetic radiation emitted by the sun."
+              }
+          ],
+          "Hydroelectric power": [
+              {
+                  "Relation": "utilizes",
+                  "Object": "Water",
+                  "Description": "Hydroelectric power utilizes the force of flowing water to generate electricity."
+              },
+              {
+                  "Relation": "drives",
+                  "Object": "Turbine",
+                  "Description": "The force of flowing water drives the turbine in a hydroelectric power plant."
+              },
+              {
+                  "Relation": "requires",
+                  "Object": "Dam",
+                  "Description": "A dam is required to create a reservoir and control the flow of water for hydroelectric power generation."
+              },
+              {
+                  "Relation": "converts",
+                  "Object": "Generator",
+                  "Description": "The turbine converts the mechanical energy of flowing water into electrical energy using a generator in a hydroelectric power plant."
+              }
+          ],
+          "Geothermal energy": [
+              {
+                  "Relation": "is produced by",
+                  "Object": "Geothermal power plant",
+                  "Description": "Geothermal energy is produced by geothermal power plants that harness heat from the Earth's core."
+              },
+              {
+                  "Relation": "is utilized by",
+                  "Object": "Geothermal heat pump",
+                  "Description": "Geothermal energy is utilized by geothermal heat pumps for heating and cooling buildings."
+              },
+              {
+                  "Relation": "is extracted from",
+                  "Object": "Geothermal reservoir",
+                  "Description": "Geothermal energy is extracted from underground geothermal reservoirs that contain hot water or steam."
+              },
+              {
+                  "Relation": "is supported by",
+                  "Object": "Geothermal energy association",
+                  "Description": "Geothermal energy is supported by organizations like the Geothermal Energy Association that promote its development and use."
+              }
+          ],
+          "Solar panel": [
+              {
+                  "Relation": "provides power to",
+                  "Object": "Battery",
+                  "Description": "Solar panels generate electricity that can be stored in batteries for later use."
+              },
+              {
+                  "Relation": "converts DC power to AC power using",
+                  "Object": "Inverter",
+                  "Description": "Solar panels produce direct current (DC) electricity, which needs to be converted to alternating current (AC) electricity for use in homes and businesses. Inverters are used for this purpose."
+              },
+              {
+                  "Relation": "consists of",
+                  "Object": "Photovoltaic Cell",
+                  "Description": "Solar panels are made up of multiple photovoltaic cells that convert sunlight into electricity."
+              },
+              {
+                  "Relation": "is mounted on",
+                  "Object": "Mounting System",
+                  "Description": "Solar panels are installed on mounting systems, which securely hold them in place and allow for optimal sunlight exposure."
+              }
+          ],
+          "Solar energy": [
+              {
+                  "Relation": "is generated by",
+                  "Object": "Photovoltaic cells",
+                  "Description": "Photovoltaic cells convert sunlight into electricity, generating solar energy."
+              },
+              {
+                  "Relation": "is captured by",
+                  "Object": "Solar panels",
+                  "Description": "Solar panels capture sunlight and convert it into usable energy, contributing to solar energy production."
+              },
+              {
+                  "Relation": "is harnessed by",
+                  "Object": "Solar power plants",
+                  "Description": "Solar power plants utilize solar energy to generate electricity on a large scale."
+              },
+              {
+                  "Relation": "is the source of",
+                  "Object": "Solar radiation",
+                  "Description": "Solar radiation is the primary source of solar energy, providing the energy needed for various solar technologies."
+              }
+          ],
+          "Solar farm": [
+              {
+                  "Relation": "utilizes",
+                  "Object": "Solar panel",
+                  "Description": "Solar farms use solar panels to generate electricity."
+              },
+              {
+                  "Relation": "connects to",
+                  "Object": "Electricity grid",
+                  "Description": "Solar farms are connected to the electricity grid to distribute the generated electricity."
+              },
+              {
+                  "Relation": "contributes to",
+                  "Object": "Renewable energy",
+                  "Description": "Solar farms contribute to the generation of renewable energy."
+              },
+              {
+                  "Relation": "addresses",
+                  "Object": "Environmental impact",
+                  "Description": "Solar farms help address environmental impact by reducing reliance on fossil fuels."
+              }
+          ],
+          "Solar radiation": [
+              {
+                  "Relation": "emits",
+                  "Object": "Sun",
+                  "Description": "The Sun emits solar radiation, which includes visible light, ultraviolet (UV) radiation, and infrared (IR) radiation."
+              },
+              {
+                  "Relation": "travels through",
+                  "Object": "Atmosphere",
+                  "Description": "Solar radiation travels through the Earth's atmosphere, where it can be absorbed, scattered, or reflected."
+              },
+              {
+                  "Relation": "interacts with",
+                  "Object": "Clouds",
+                  "Description": "Solar radiation interacts with clouds, affecting their formation, movement, and properties."
+              },
+              {
+                  "Relation": "reaches",
+                  "Object": "Earth",
+                  "Description": "Solar radiation reaches the Earth's surface, providing energy for various processes such as photosynthesis and heating the planet."
+              }
+          ],
+          "Turbine": [
+              {
+                  "Relation": "Uses",
+                  "Object": "Wind",
+                  "Description": "Turbine uses wind to generate power"
+              },
+              {
+                  "Relation": "Produces",
+                  "Object": "Generator",
+                  "Description": "Turbine produces electricity using a generator"
+              },
+              {
+                  "Relation": "Consists of",
+                  "Object": "Blade",
+                  "Description": "Turbine consists of rotating blades to capture wind energy"
+              },
+              {
+                  "Relation": "Controlled by",
+                  "Object": "Control System",
+                  "Description": "Turbine operation is controlled by a control system"
+              },
+              {
+                  "Relation": "Uses",
+                  "Object": "Wind",
+                  "Description": "A turbine uses wind to generate power"
+              },
+              {
+                  "Relation": "Generates",
+                  "Object": "Generator",
+                  "Description": "A turbine generates electricity using a generator"
+              },
+              {
+                  "Relation": "Consists of",
+                  "Object": "Blades",
+                  "Description": "A turbine consists of rotating blades that capture wind energy"
+              },
+              {
+                  "Relation": "Controlled by",
+                  "Object": "Control System",
+                  "Description": "A turbine is controlled by a control system to optimize its performance"
+              }
+          ],
+          "Grid integration": [
+              {
+                  "Relation": "enables",
+                  "Object": "Renewable energy sources",
+                  "Description": "Grid integration enables the integration of renewable energy sources into the power grid."
+              },
+              {
+                  "Relation": "utilizes",
+                  "Object": "Smart grid",
+                  "Description": "Grid integration utilizes smart grid technologies to optimize the integration of renewable energy sources."
+              },
+              {
+                  "Relation": "requires",
+                  "Object": "Energy storage",
+                  "Description": "Grid integration requires energy storage systems to balance supply and demand fluctuations."
+              },
+              {
+                  "Relation": "supports",
+                  "Object": "Electric vehicles",
+                  "Description": "Grid integration supports the charging infrastructure for electric vehicles."
+              }
+          ],
+          "Offshore wind farm": [
+              {
+                  "Relation": "consists of",
+                  "Object": "Wind turbine",
+                  "Description": "Offshore wind farms consist of multiple wind turbines that generate electricity from wind energy."
+              },
+              {
+                  "Relation": "connected to",
+                  "Object": "Underwater cable",
+                  "Description": "Offshore wind farms are connected to the mainland power grid through underwater cables to transmit the generated electricity."
+              },
+              {
+                  "Relation": "impacts",
+                  "Object": "Marine life",
+                  "Description": "Offshore wind farms can have impacts on marine life due to construction activities, noise, and changes in habitat."
+              },
+              {
+                  "Relation": "connected to",
+                  "Object": "Power grid",
+                  "Description": "Offshore wind farms are connected to the power grid to distribute the generated electricity to consumers."
+              }
+          ],
+          "Water": [
+              {
+                  "Relation": "Chemical Composition",
+                  "Object": "Hydrogen",
+                  "Description": "Water is composed of two hydrogen atoms."
+              },
+              {
+                  "Relation": "Habitat",
+                  "Object": "Fish",
+                  "Description": "Fish live in water."
+              },
+              {
+                  "Relation": "Transportation",
+                  "Object": "Boat",
+                  "Description": "Boats are used to travel on water."
+              },
+              {
+                  "Relation": "Solid State",
+                  "Object": "Ice",
+                  "Description": "Water freezes and becomes ice at low temperatures."
+              }
+          ],
+          "Dam": [
+              {
+                  "Relation": "diverts water from",
+                  "Object": "River",
+                  "Description": "A dam diverts water from a river to control its flow."
+              },
+              {
+                  "Relation": "generates electricity through",
+                  "Object": "Power Plant",
+                  "Description": "A dam generates electricity through a power plant."
+              },
+              {
+                  "Relation": "affects the habitat of",
+                  "Object": "Fish",
+                  "Description": "A dam affects the habitat of fish by altering the natural flow of water."
+              },
+              {
+                  "Relation": "forms a",
+                  "Object": "Reservoir",
+                  "Description": "A dam forms a reservoir by blocking the flow of water."
+              }
+          ],
+          "Generator": [
+              {
+                  "Relation": "powers",
+                  "Object": "Turbine",
+                  "Description": "The generator powers the turbine to produce electricity."
+              },
+              {
+                  "Relation": "connects to",
+                  "Object": "Transformer",
+                  "Description": "The generator connects to the transformer to step up or step down the voltage."
+              },
+              {
+                  "Relation": "controlled by",
+                  "Object": "Control Panel",
+                  "Description": "The generator is controlled by the control panel to regulate its operation."
+              },
+              {
+                  "Relation": "supplies electricity to",
+                  "Object": "Power Grid",
+                  "Description": "The generator supplies electricity to the power grid for distribution."
+              }
+          ],
+          "Geothermal power plant": [
+              {
+                  "Relation": "utilizes",
+                  "Object": "Geothermal energy",
+                  "Description": "A geothermal power plant utilizes geothermal energy to generate electricity."
+              },
+              {
+                  "Relation": "uses",
+                  "Object": "Heat exchanger",
+                  "Description": "A geothermal power plant uses a heat exchanger to transfer heat from the geothermal fluid to the working fluid."
+              },
+              {
+                  "Relation": "extracts",
+                  "Object": "Geothermal reservoir",
+                  "Description": "A geothermal power plant extracts hot water or steam from a geothermal reservoir to generate electricity."
+              }
+          ],
+          "Geothermal heat pump": [
+              {
+                  "Relation": "utilizes",
+                  "Object": "Geothermal energy",
+                  "Description": "A geothermal heat pump utilizes the heat energy from the earth's interior, known as geothermal energy, to provide heating and cooling for buildings."
+              },
+              {
+                  "Relation": "is a type of",
+                  "Object": "Ground source heat pump",
+                  "Description": "A geothermal heat pump is a type of ground source heat pump that uses the constant temperature of the earth to efficiently heat and cool buildings."
+              },
+              {
+                  "Relation": "uses",
+                  "Object": "Heat exchanger",
+                  "Description": "A geothermal heat pump uses a heat exchanger to transfer heat between the refrigerant in the system and the ground or water source."
+              },
+              {
+                  "Relation": "is a form of",
+                  "Object": "Renewable heating",
+                  "Description": "A geothermal heat pump is a form of renewable heating system that harnesses the natural heat energy from the earth to provide sustainable heating and cooling."
+              }
+          ],
+          "Geothermal reservoir": [
+              {
+                  "Relation": "is utilized by",
+                  "Object": "Geothermal power plant",
+                  "Description": "Geothermal reservoirs are used as a source of heat for geothermal power plants."
+              },
+              {
+                  "Relation": "is harnessed by",
+                  "Object": "Geothermal heat pump",
+                  "Description": "Geothermal reservoirs provide the heat source for geothermal heat pumps used for heating and cooling buildings."
+              },
+              {
+                  "Relation": "is the source of",
+                  "Object": "Geothermal energy",
+                  "Description": "Geothermal reservoirs are the primary source of geothermal energy, which is used for electricity generation and heating purposes."
+              },
+              {
+                  "Relation": "is influenced by",
+                  "Object": "Geothermal gradient",
+                  "Description": "The temperature and pressure of a geothermal reservoir are influenced by the geothermal gradient, which is the rate of increase in temperature with depth in the Earth's crust."
+              }
+          ],
+          "Geothermal energy association": [
+              {
+                  "Relation": "is associated with",
+                  "Object": "Geothermal power plant",
+                  "Description": "The Geothermal energy association promotes the development and utilization of geothermal power plants."
+              },
+              {
+                  "Relation": "supports",
+                  "Object": "Renewable energy",
+                  "Description": "The Geothermal energy association advocates for the use of renewable energy sources, including geothermal energy."
+              },
+              {
+                  "Relation": "promotes",
+                  "Object": "Geothermal heat pump",
+                  "Description": "The Geothermal energy association encourages the adoption of geothermal heat pumps for heating and cooling purposes."
+              }
+          ]
+      }

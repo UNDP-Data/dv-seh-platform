@@ -1,9 +1,13 @@
 import { React, useState, useEffect } from 'react';
-import ForceGraph from 'undp-energy-graph';
+import ForceGraph from 'graph-viz';
 import PropTypes from 'prop-types';
 import DataGraphUi from './data_graph_ui';
 
-export default function DataGraph({ setPopupData, setPopupVisible }) {
+export default function DataGraph({
+  activeEnteties,
+  setPopupData,
+  setPopupVisible,
+}) {
   // const [graph, setGraph] = useState({});
   const [graphSearch, setGraphSearch] = useState(() => {});
 
@@ -17,10 +21,13 @@ export default function DataGraph({ setPopupData, setPopupVisible }) {
           'Content-Type': 'application/json',
         },
       };
-
+      /* replace /energy-entities-small.json 
+          with /energy-entities.json file
+          when larger graph is needed with all entities */
+      console.log('----activeEnteties----', activeEnteties);
       const [response1, response2] = await Promise.all([
-        fetch('/energy-entities.json', params),
-        fetch('/energy-relations.json', params),
+        fetch('/energy-entities-small.json', params),
+        fetch('/energy-relations-small.json', params),
       ]);
 
       if (!response1.ok || !response2.ok) {
@@ -31,8 +38,7 @@ export default function DataGraph({ setPopupData, setPopupVisible }) {
 
       const resultNodes = await response1.json();
       const resultEdges = await response2.json();
-
-      const colors = [
+      /* const colors = [
         '#418BFC',
         '#46BCC8',
         '#D6AB1B',
@@ -43,27 +49,60 @@ export default function DataGraph({ setPopupData, setPopupVisible }) {
         '#EA6BCB',
         '#B9AAC8',
         '#F08519',
-      ];
-      const resultNodesTrunc = resultNodes.map(d => {
+      ]; */
+
+      // below func is for future puporse when category is used
+      /* const resultNodesTrunc = resultNodes.map(d => {
         return {
-          NAME: d.entity,
-          CATEGORY: d.category,
+          entity: d.entity,
+          category: d.category,
         };
+      }); */
+
+      /* The variable transformedData is utilized 
+        to adapt the current dummy data format 
+        to the expected input structure by ForceGraph func. */
+      const transformedData = [];
+
+      Object.keys(resultEdges).forEach(subject => {
+        resultEdges[subject].forEach(
+          (relation: { Object: any; Relation: any }) => {
+            transformedData.push({
+              Object: relation.Object,
+              Subject: subject,
+              Relation: relation.Relation,
+            });
+          },
+        );
       });
+
       const instance = ForceGraph(
-        { nodes: resultNodesTrunc, links: resultEdges },
+        { nodes: resultNodes, links: resultEdges },
+
         {
           containerSelector: '.graph-container',
-          nodeId: 'NAME',
+          nodeId: 'entity',
           sourceId: 'Subject',
           targetId: 'Object',
-          nodeGroup: d => d.CATEGORY,
-          nodeTitle: d => d.NAME,
-          linkStrokeWidth: 1,
-          colors,
           width: window.innerWidth,
           height: window.innerHeight,
-          labelVisibility: 'visible',
+          nodeStyles: {
+            strokeWidth: 2,
+          },
+          linkStyles: {
+            strokeWidth: 1.5,
+          },
+          labelStyles: {
+            visibility: 'visible',
+            label: 'entity',
+            edge: {
+              visibility: 'hidden',
+              label: 'Relation',
+            },
+          },
+          containerStyles: {
+            'background-color': '#212121',
+          },
         },
       );
       // setGraph(() => {
@@ -89,6 +128,7 @@ export default function DataGraph({ setPopupData, setPopupVisible }) {
 }
 
 DataGraph.propTypes = {
+  activeEnteties: PropTypes.arrayOf(PropTypes.string),
   setPopupData: PropTypes.func,
   setPopupVisible: PropTypes.func,
 };

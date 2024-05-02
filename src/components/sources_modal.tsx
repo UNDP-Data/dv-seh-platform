@@ -21,7 +21,7 @@ function Source({ source }) {
           <img
             className='modal_sources_thumbnail-img'
             alt={source.title}
-            src={source.thumbnail}
+            src={`data:image/jpeg;base64,${source.thumbnail}`}
           />
         </a>
       </div>

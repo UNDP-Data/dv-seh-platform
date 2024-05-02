@@ -362,7 +362,7 @@ button:focus {
   max-height: 400px;
   max-width: 550px;
   overflow-y: scroll;
-  position: absolute;
+  position: fixed;
   bottom: calc(86px + 3rem);
   left: calc(50% - 2rem);
   padding: 1rem 1.5rem;
@@ -415,11 +415,23 @@ button:focus {
   mask-size: 100%;
   -webkit-mask-size: 100%;
 }
+.modal_entity_close {
+  top: -6px;
+  right: 730px;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: #000;
+  mask-image: url('/cancel.svg');
+  -webkit-mask-image: url('/cancel.svg');
+  mask-size: 100%;
+  -webkit-mask-size: 100%;
+}
 .modal_close:hover {
   background-color: #1F1F1F;
 }
 .modal_entities {
-  position: absolute;
+  position: fixed;
   top: 20px;
   bottom: 20px;
   left: 3.5%;
