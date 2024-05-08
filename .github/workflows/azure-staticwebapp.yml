@@ -3,7 +3,7 @@ name: Deploy web app to Azure Static Web Apps
 on:
   push:
     branches:
-      - main
+      - none
 
 # Environment variables available to all jobs and steps in this workflow
 env:
