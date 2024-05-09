@@ -377,8 +377,8 @@ button:focus {
   opacity: 0;
 }
 .modal_sources {
-  max-height: 400px;
-  max-width: 550px;
+  max-height: 500px;
+  max-width: 750px;
   overflow-y: scroll;
   position: fixed;
   bottom: calc(86px + 3rem);
@@ -408,11 +408,11 @@ button:focus {
   opacity: 1;
 }
 .modal_sources_thumbnail {
-  max-width: 20%;
+  max-width: 50%;
   margin-left: 2rem;
 }
 .modal_sources_thumbnail-img {
-  max-width: 100%;
+  max-width: 80%;
 }
 .modal_sources_item {
   margin-bottom: 4rem;
@@ -460,4 +460,19 @@ button:focus {
 .modal_entities_header {
   font-size: 24px;
   font-weight: bold;
+}
+.knowledge-graph-btn {
+  background-color:  #3CB371; /* Teal background */
+  color: white; /* White text */
+  border: none; /* No border */
+  border-radius: 20px; /* Rounded corners */
+  padding: 10px 20px; /* Padding around text */
+  font-size: 16px; /* Text size */
+  cursor: pointer; /* Pointer cursor on hover */
+  outline: none; /* Remove outline */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.knowledge-graph-btn:hover {
+  background-color: #008C7A; /* Darker shade for hover effect */
 }
