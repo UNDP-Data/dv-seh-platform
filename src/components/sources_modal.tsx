@@ -1,29 +1,60 @@
 import { React } from 'react';
 import { createPortal } from 'react-dom';
+import { PiGraphThin } from 'react-icons/pi';
 import PropTypes from 'prop-types';
+import { Row, Col } from 'antd';
+import defaultImage from '../../public/bg-landing-main.jpg';
 
 function Source({ source }) {
   return (
     <div className='modal_sources_item'>
       <h4 className='modal_sources_title'>
-        <a target='_blank' rel='noreferrer' href={source.link}>
-          {source.title}
-        </a>
-      </h4>
-      <div className='modal_sources_content'>
-        <p> {source.extract} </p>
         <a
-          className='modal_sources_thumbnail'
+          style={{ color: 'blue' }}
           target='_blank'
           rel='noreferrer'
           href={source.link}
         >
-          <img
-            className='modal_sources_thumbnail-img'
-            alt={source.title}
-            src={`data:image/jpeg;base64,${source.thumbnail}`}
-          />
+          {source.title}
         </a>
+      </h4>
+      <div className='modal_sources_content'>
+        <Row>
+          <Col xs={16}>
+            <p> {source.extract} </p>
+          </Col>
+          <Col xs={8}>
+            <a
+              className='modal_sources_thumbnail'
+              target='_blank'
+              rel='noreferrer'
+              href={source.link}
+            >
+              <img
+                className='modal_sources_thumbnail-img'
+                alt={source.title}
+                src={
+                  source.thumbnail
+                    ? `data:image/jpeg;base64,${source.thumbnail}`
+                    : defaultImage
+                }
+              />
+            </a>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginLeft: '18px',
+              }}
+            >
+              <button type='button' className='knowledge-graph-btn'>
+                knowledge Graph
+                <PiGraphThin style={{ marginLeft: '10px' }} />
+              </button>
+            </div>
+          </Col>
+        </Row>
       </div>
     </div>
   );
