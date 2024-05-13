@@ -1,8 +1,9 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useRef } from 'react';
 import ForceGraph from 'graph-viz';
+import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import DataGraphUi from './data_graph_ui';
-
+/* eslint-disable react/forbid-prop-types */
 export default function DataGraph({
   activeEnteties,
   setPopupData,
@@ -11,8 +12,16 @@ export default function DataGraph({
   // const [graph, setGraph] = useState({});
   const [graphSearch, setGraphSearch] = useState(() => {});
 
+  const graphContainer = useRef(null);
+
   useEffect(() => {
     async function initGraph() {
+      console.log(graphContainer, d3);
+      /*
+      if (graphContainer.current) {
+        d3.select(graphContainer.current).selectAll('svg').remove(); // Destroy method provided by the third-party library
+      } */
+
       const params = {
         method: 'GET',
         // mode: 'no-cors',
@@ -38,47 +47,43 @@ export default function DataGraph({
 
       const resultNodes = await response1.json();
       const resultEdges = await response2.json();
-      /* const colors = [
-        '#418BFC',
-        '#46BCC8',
-        '#D6AB1B',
-        '#EB5E68',
-        '#B6BE1C',
-        '#F64D1A',
-        '#BA6DE4',
-        '#EA6BCB',
-        '#B9AAC8',
-        '#F08519',
-      ]; */
 
-      // below func is for future puporse when category is used
-      /* const resultNodesTrunc = resultNodes.map(d => {
-        return {
-          entity: d.entity,
-          category: d.category,
-        };
-      }); */
+      const realEdgedata = {};
+      const realEntityData = [];
 
-      /* The variable transformedData is utilized 
-        to adapt the current dummy data format 
-        to the expected input structure by ForceGraph func. */
-      const transformedData = [];
+      activeEnteties.forEach(entry => {
+        // Correct the scope and declaration of relations
+        const { relations } = entry['knowledge graph'];
+        Object.keys(relations).forEach(subject => {
+          realEdgedata[subject] = relations[subject];
+          relations[subject].forEach(relation => {
+            // Check and push subject to realEntityData if not present
+            if (!realEntityData.some(item => item.entity === subject)) {
+              realEntityData.push({
+                entity: subject,
+                category: 'Renewable energy', // Assuming all subjects fall under this category
+              });
+            }
 
-      Object.keys(resultEdges).forEach(subject => {
-        resultEdges[subject].forEach(
-          (relation: { Object: any; Relation: any }) => {
-            transformedData.push({
-              Object: relation.Object,
-              Subject: subject,
-              Relation: relation.Relation,
-            });
-          },
-        );
+            // Check and push relation.Object to realEntityData if not present
+            if (!realEntityData.some(item => item.entity === relation.Object)) {
+              realEntityData.push({
+                entity: relation.Object,
+                category: 'Renewable energy', // Assuming all relation objects fall under this category
+              });
+            }
+          });
+        });
       });
 
+      console.log('----resultNodes---', resultNodes);
+      console.log('----resultEdges---', resultEdges);
+
+      console.log('----realEntityData---', realEntityData);
+      console.log('----realEdgedata---', realEdgedata);
 
       const instance = ForceGraph(
-        { nodes: resultNodes, links: resultEdges },
+        { nodes: realEntityData, links: realEdgedata },
 
         {
           containerSelector: '.graph-container',
@@ -109,6 +114,7 @@ export default function DataGraph({
       // setGraph(() => {
       //   return instance;
       // });
+
       setGraphSearch(() => {
         return instance.search;
       });
@@ -119,17 +125,21 @@ export default function DataGraph({
       });
     }
     initGraph();
-  }, []);
+  }, [activeEnteties]);
 
   return (
-    <div className='graph-container' style={{ width: '100%', height: '100%' }}>
+    <div
+      ref={graphContainer}
+      className='graph-container'
+      style={{ width: '100%', height: '100%' }}
+    >
       <DataGraphUi graphSearch={graphSearch} />
     </div>
   );
 }
 
 DataGraph.propTypes = {
-  activeEnteties: PropTypes.arrayOf(PropTypes.string),
+  activeEnteties: PropTypes.arrayOf(PropTypes.object),
   setPopupData: PropTypes.func,
   setPopupVisible: PropTypes.func,
 };
