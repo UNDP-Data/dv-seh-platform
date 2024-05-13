@@ -1,5 +1,6 @@
 import { React, useState, createRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+/* eslint-disable react/forbid-prop-types */
 import { Flex, Row, Col, Dropdown } from 'antd';
 import { useLocation } from 'react-router-dom';
 import service from '../services';
@@ -23,6 +24,24 @@ Message.propTypes = {
   source: PropTypes.string,
 };
 
+function DataGraphContainer({ activeEnteties, setPopupData, setPopupVisible }) {
+  return (
+    <Col xs={0} lg={12}>
+      <DataGraph
+        activeEnteties={activeEnteties}
+        setPopupData={setPopupData}
+        setPopupVisible={setPopupVisible}
+      />
+    </Col>
+  );
+}
+
+DataGraphContainer.propTypes = {
+  activeEnteties: PropTypes.arrayOf(PropTypes.object),
+  setPopupData: PropTypes.func,
+  setPopupVisible: PropTypes.func,
+};
+
 export default function Landing() {
   const { state } = useLocation();
   const [popupData, setPopupData] = useState({});
@@ -33,18 +52,33 @@ export default function Landing() {
 
   const [promptSuggestions, setPromptSuggestions] = useState(() => {
     return state.messages
-      ? state.messages[1].message.prompts.map((prompt, index) => {
+      ? state.messages[1].message.query_ideas.map((query_ideas, index) => {
           return {
             key: index.toString(),
-            label: prompt,
+            label: query_ideas,
           };
         })
       : [];
   });
 
   const [activeEnteties, setActiveEnteties] = useState(() => {
-    return state.messages ? state.messages[1].message.entities : [];
+    return state.messages ? state.messages[1].message.kg_data : [];
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fullResponse = await service.askQuestion(
+        state.messages[0].message.answer,
+        'full',
+      );
+      const updatedMessages = state.messages.map((msg, index) =>
+        index === 1 ? { ...msg, message: fullResponse } : msg,
+      );
+
+      setMessages(updatedMessages);
+    };
+    fetchData();
+  }, []);
 
   const [chatBoxMessage, setChatBoxMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -76,9 +110,10 @@ export default function Landing() {
     ]);
     setMessages(newMessages);
     let responce;
+    let partialResponse;
     try {
-      const partialResponse = await service.askQuestion(userMessage, 'partial');
-      console.log('partial response-----', partialResponse);
+      partialResponse = await service.askQuestion(userMessage, 'partial');
+      await setActiveEnteties(partialResponse.kg_data);
       responce = await service.askQuestion(userMessage, 'full');
     } catch (e) {
       setLoading(false);
@@ -91,14 +126,13 @@ export default function Landing() {
     ]);
 
     setPromptSuggestions(
-      responce.prompts.map((prompt, index) => {
+      responce.query_ideas.map((query_ideas, index) => {
         return {
           key: index.toString(),
-          label: prompt,
+          label: query_ideas,
         };
       }),
     );
-    setActiveEnteties(responce.entities);
     setMessages(newMessages);
     setLoading(false);
     setChatBoxMessage('');
@@ -195,13 +229,11 @@ export default function Landing() {
             </Col>
           </Row>
         </Col>
-        <Col xs={0} lg={12}>
-          <DataGraph
-            activeEnteties={activeEnteties}
-            setPopupData={setPopupData}
-            setPopupVisible={setPopupVisible}
-          />
-        </Col>
+        <DataGraphContainer
+          activeEnteties={activeEnteties}
+          setPopupData={setPopupData}
+          setPopupVisible={setPopupVisible}
+        />
       </Row>
     </Flex>
   );

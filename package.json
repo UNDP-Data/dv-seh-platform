@@ -12,6 +12,7 @@
     "@ant-design/icons": "^5.2.6",
     "antd": "^5.11.1",
     "axios": "^1.6.5",
+    "d3": "^7.9.0",
     "graph-viz": "github:dianaow/energy-graph-viz",
     "i18next": "^23.7.15",
     "i18next-browser-languagedetector": "^7.2.0",

@@ -29,7 +29,7 @@ async function askQuestion(query, type) {
   respDef.data.sources = resp.data.excerpts_dict;
   respDef.data.prompts = resp.data.query_ideas;
   respDef.data.entities = resp.data.entities;
-  return respDef.data;
+  return resp.data;
 }
 
 export default {

@@ -61,7 +61,7 @@ function Source({ source }) {
 }
 
 export default function SourcesModal({ message, visible, close }) {
-  const sources = Object.values(message.sources);
+  const sources = Object.values(message.excerpts_dict);
   return (
     <>
       {createPortal(
@@ -94,7 +94,7 @@ SourcesModal.propTypes = {
   message: PropTypes.shape({
     query: PropTypes.string,
     answer: PropTypes.string,
-    sources: PropTypes.shape({}),
+    excerpts_dict: PropTypes.shape({}),
   }),
   visible: PropTypes.bool,
   close: PropTypes.func,

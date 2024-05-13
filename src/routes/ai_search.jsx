@@ -38,9 +38,6 @@ export default function Landing() {
     event.preventDefault();
     toggleLoading();
     const partialResponse = await service.askQuestion(message, 'partial');
-    console.log('Partial response--', partialResponse);
-    const responce = await service.askQuestion(message, 'full');
-    console.log('Full response--', responce);
     navigate('/chat', {
       state: {
         messages: [
@@ -51,7 +48,7 @@ export default function Landing() {
             source: 'user',
           },
           {
-            message: responce,
+            message: partialResponse,
             source: 'api',
           },
         ],
