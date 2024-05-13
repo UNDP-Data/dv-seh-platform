@@ -16,11 +16,9 @@ export default function DataGraph({
 
   useEffect(() => {
     async function initGraph() {
-      console.log(graphContainer, d3);
-      /*
       if (graphContainer.current) {
         d3.select(graphContainer.current).selectAll('svg').remove(); // Destroy method provided by the third-party library
-      } */
+      }
 
       const params = {
         method: 'GET',
