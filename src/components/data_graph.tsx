@@ -76,6 +76,7 @@ export default function DataGraph({
         );
       });
 
+
       const instance = ForceGraph(
         { nodes: resultNodes, links: resultEdges },
 
