@@ -13,29 +13,29 @@ function Source({ source }) {
           style={{ color: 'blue' }}
           target='_blank'
           rel='noreferrer'
-          href={source.link}
+          href={source.document_link}
         >
-          {source.title}
+          {source.document_title}
         </a>
       </h4>
       <div className='modal_sources_content'>
         <Row>
           <Col xs={16}>
-            <p> {source.extract} </p>
+            <p> {source.summary} </p>
           </Col>
           <Col xs={8}>
             <a
               className='modal_sources_thumbnail'
               target='_blank'
               rel='noreferrer'
-              href={source.link}
+              href={source.document_link}
             >
               <img
                 className='modal_sources_thumbnail-img'
-                alt={source.title}
+                alt={source.document_title}
                 src={
-                  source.thumbnail
-                    ? `data:image/jpeg;base64,${source.thumbnail}`
+                  source.document_thumbnail
+                    ? `data:image/jpeg;base64,${source.document_thumbnail}`
                     : defaultImage
                 }
               />
@@ -102,9 +102,9 @@ SourcesModal.propTypes = {
 
 Source.propTypes = {
   source: PropTypes.shape({
-    link: PropTypes.string,
-    title: PropTypes.string,
-    extract: PropTypes.string,
-    thumbnail: PropTypes.string,
+    document_link: PropTypes.string,
+    document_title: PropTypes.string,
+    summary: PropTypes.string,
+    document_thumbnail: PropTypes.string,
   }),
 };
