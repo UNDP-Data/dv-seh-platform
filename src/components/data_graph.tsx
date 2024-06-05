@@ -16,9 +16,9 @@ export default function DataGraph({
 
   // Function to process kg_data from API and make it apt for graph_viz package parameters
   const transformData = data => {
-    const transformedEdgeData = {};
-    const entitiesSet = new Set();
     const entitiesArray = [];
+    const edgeArray = [];
+    const entitiesSet = new Set();
 
     const addEntity = (entity, category) => {
       if (!entitiesSet.has(entity)) {
@@ -29,50 +29,34 @@ export default function DataGraph({
 
     data.forEach(item => {
       const entity = item.metadata.Entity;
+      const category = item.metadata.Category;
 
-      // Add metadata entity to entitiesArray
-      addEntity(entity, item.metadata.Category);
+      // Add metadata entity to nodes
+      addEntity(entity, category);
 
-      // Handle level 1 relations
-      if (!transformedEdgeData[entity]) {
-        transformedEdgeData[entity] = [];
-      }
-      transformedEdgeData[entity].push(
-        ...item['knowledge graph'].relations['level 1'].map(relation => ({
-          Description: relation.Description,
-          Importance: relation.Importance,
-          Object: relation.Object,
-          Relation: relation.Relation,
-        })),
-      );
+      // Handle level 1, 2, and 3 relations
+      ['level 1', 'level 2', 'level 3'].forEach(level => {
+        item['knowledge graph'].relations[level].forEach(relation => {
+          const subject = relation.Subject || entity;
+          const object = relation.Object;
 
-      // Add each object in level 1 relations as entity with category 'Renewable energy'
-      item['knowledge graph'].relations['level 1'].forEach(relation => {
-        addEntity(relation.Object, 'Renewable energy');
-      });
-
-      // Handle level 2 and level 3 relations
-      ['level 2', 'level 3'].forEach(level => {
-        item['knowledge graph'].relations[level].forEach(relations => {
-          const subject = relations.Subject || entity;
-          if (!transformedEdgeData[subject]) {
-            transformedEdgeData[subject] = [];
-          }
-          transformedEdgeData[subject].push({
-            Description: relations.Description,
-            Importance: relations.Importance,
-            Object: relations.Object,
-            Relation: relations.Relation,
+          // Add relation as link
+          edgeArray.push({
+            Object: object,
+            Subject: subject,
+            Relation: relation.Relation,
+            Description: relation.Description,
+            Importance: relation.Importance,
           });
 
-          // Add each object in level 2 and level 3 relations as entity with category 'Renewable energy'
-          addEntity(relations.Object, 'Renewable energy');
-          addEntity(relations.Subject, 'Renewable energy');
+          // Add each object and subject in relations as entity with category 'Renewable energy'
+          addEntity(object, 'Renewable energy');
+          addEntity(subject, 'Renewable energy');
         });
       });
     });
 
-    return { transformedEdgeData, entitiesArray };
+    return { entitiesArray, edgeArray };
   };
 
   useEffect(() => {
@@ -81,42 +65,12 @@ export default function DataGraph({
         d3.select(graphContainer.current).selectAll('svg').remove(); // Destroy method provided by the third-party library
       }
 
-      const params = {
-        method: 'GET',
-        // mode: 'no-cors',
-        // credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-      /* replace /energy-entities-small.json 
-          with /energy-entities.json file
-          when larger graph is needed with all entities */
-      console.log('----activeEnteties----', activeEnteties);
-      const [response1, response2] = await Promise.all([
-        fetch('/energy-entities-small.json', params),
-        fetch('/energy-relations-small.json', params),
-      ]);
-
-      if (!response1.ok || !response2.ok) {
-        throw new Error(
-          `HTTP error! Status: ${response1.status} ${response2.status}`,
-        );
-      }
-
-      // uncomment below two lines when need to use hard coded data from.json file
-      const resultNodes = await response1.json();
-      const resultEdges = await response2.json();
-
-      console.log('========Nodes', resultNodes);
-      console.log('========Edges', resultEdges);
-      const { transformedEdgeData, entitiesArray } =
-        transformData(activeEnteties);
-      console.log('New Function output----', transformedEdgeData);
+      const { edgeArray, entitiesArray } = transformData(activeEnteties);
+      console.log('New Function output----', edgeArray);
       console.log('New Function output entitiesArray----', entitiesArray);
 
       const instance = ForceGraph(
-        { nodes: entitiesArray, links: transformedEdgeData },
+        { nodes: entitiesArray, links: edgeArray },
 
         {
           containerSelector: '.graph-container',

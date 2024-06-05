@@ -25,25 +25,26 @@ export default function Landing() {
   const navigate = useNavigate();
 
   const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState('');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleChange = event => {
     setMessage(event.target.value);
   };
-  const toggleLoading = () => {
-    setLoading(!loading);
-  };
 
   async function handleSubmit(event) {
     event.preventDefault();
-    toggleLoading();
+    setLoading(true); // Set loading to true at the start
     setError(null); // Reset any previous errors
+
     try {
       const partialResponse = await service.askQuestion(message, 'partial');
+      console.log('-------', partialResponse);
+
       if (partialResponse.error) {
         throw new Error(partialResponse.message);
       }
+
       navigate('/chat', {
         state: {
           messages: [
@@ -62,8 +63,9 @@ export default function Landing() {
       });
     } catch (err) {
       setError(err.message);
+      setMessage('');
     } finally {
-      toggleLoading();
+      setLoading(false); // Ensure loading is set to false
     }
   }
 
@@ -97,20 +99,22 @@ export default function Landing() {
           </div>
           <form onSubmit={handleSubmit} style={{ position: 'relative' }}>
             <input
-              className={`search_input
-                ${loading ? 'search_input-loading' : ''}`}
+              className={`search_input ${
+                loading ? 'search_input-loading' : ''
+              }`}
               type='search'
               disabled={loading}
               onChange={handleChange}
               value={message}
-              placeholder='Example : “How many beneficiaries are there per region for UNDP energy projects active in 2022?”'
+              placeholder='Example: “How many beneficiaries are there per region for UNDP energy projects active in 2022?”'
             />
             <button
               onClick={handleSubmit}
               aria-label='search'
               type='button'
-              className={`search_button
-                ${loading ? 'search_button-loading' : ''}`}
+              className={`search_button ${
+                loading ? 'search_button-loading' : ''
+              }`}
             />
             {error && (
               <div style={{ color: 'red', marginTop: '10px' }}>

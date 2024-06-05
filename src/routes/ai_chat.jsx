@@ -67,7 +67,6 @@ export default function Landing() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('--------', state.messages);
       const fullResponse = await service.askQuestion(
         state.messages[0].message.answer,
         'full',
@@ -100,6 +99,8 @@ export default function Landing() {
 
   async function postMessage(userMessage) {
     // console.log(promptSuggestions);
+
+    setChatBoxMessage('');
     setLoading(true);
     let newMessages = messages.concat([
       {

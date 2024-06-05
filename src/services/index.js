@@ -2,9 +2,6 @@ import axios from 'axios';
 
 async function askQuestion(query, type) {
   try {
-    // Fetch default response
-    const respDef = await axios.get('/api_example.json');
-
     // Make the post request
     const resp = await axios.post(
       'https://seh-ai-api.azurewebsites.net/llm',
@@ -19,13 +16,13 @@ async function askQuestion(query, type) {
         },
       },
     );
-
-    // Update response data
-    respDef.data.answer = resp.data.answer;
-    respDef.data.sources = resp.data.excerpts_dict;
-    respDef.data.prompts = resp.data.query_ideas;
-    respDef.data.entities = resp.data.entities;
-
+    if (Array.isArray(resp.data.answers) && resp.data.answers.length === 0) {
+      return {
+        error: true,
+        message:
+          'An error occurred! we are working on serving you better.Please try again later',
+      };
+    }
     return resp.data;
   } catch (error) {
     // Handle HTTP errors
