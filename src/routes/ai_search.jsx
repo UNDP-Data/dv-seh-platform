@@ -26,6 +26,7 @@ export default function Landing() {
 
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState('');
+  const [error, setError] = useState(null);
 
   const handleChange = event => {
     setMessage(event.target.value);
@@ -37,23 +38,33 @@ export default function Landing() {
   async function handleSubmit(event) {
     event.preventDefault();
     toggleLoading();
-    const partialResponse = await service.askQuestion(message, 'partial');
-    navigate('/chat', {
-      state: {
-        messages: [
-          {
-            message: {
-              answer: message,
+    setError(null); // Reset any previous errors
+    try {
+      const partialResponse = await service.askQuestion(message, 'partial');
+      if (partialResponse.error) {
+        throw new Error(partialResponse.message);
+      }
+      navigate('/chat', {
+        state: {
+          messages: [
+            {
+              message: {
+                answer: message,
+              },
+              source: 'user',
             },
-            source: 'user',
-          },
-          {
-            message: partialResponse,
-            source: 'api',
-          },
-        ],
-      },
-    });
+            {
+              message: partialResponse,
+              source: 'api',
+            },
+          ],
+        },
+      });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      toggleLoading();
+    }
   }
 
   return (
@@ -101,6 +112,11 @@ export default function Landing() {
               className={`search_button
                 ${loading ? 'search_button-loading' : ''}`}
             />
+            {error && (
+              <div style={{ color: 'red', marginTop: '10px' }}>
+                <p>{error}</p>
+              </div>
+            )}
           </form>
         </Col>
       </Row>
