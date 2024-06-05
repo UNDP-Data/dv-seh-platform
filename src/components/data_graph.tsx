@@ -14,6 +14,67 @@ export default function DataGraph({
 
   const graphContainer = useRef(null);
 
+  // Function to process kg_data from API and make it apt for graph_viz package parameters
+  const transformData = data => {
+    const transformedEdgeData = {};
+    const entitiesSet = new Set();
+    const entitiesArray = [];
+
+    const addEntity = (entity, category) => {
+      if (!entitiesSet.has(entity)) {
+        entitiesSet.add(entity);
+        entitiesArray.push({ entity, category });
+      }
+    };
+
+    data.forEach(item => {
+      const entity = item.metadata.Entity;
+
+      // Add metadata entity to entitiesArray
+      addEntity(entity, item.metadata.Category);
+
+      // Handle level 1 relations
+      if (!transformedEdgeData[entity]) {
+        transformedEdgeData[entity] = [];
+      }
+      transformedEdgeData[entity].push(
+        ...item['knowledge graph'].relations['level 1'].map(relation => ({
+          Description: relation.Description,
+          Importance: relation.Importance,
+          Object: relation.Object,
+          Relation: relation.Relation,
+        })),
+      );
+
+      // Add each object in level 1 relations as entity with category 'Renewable energy'
+      item['knowledge graph'].relations['level 1'].forEach(relation => {
+        addEntity(relation.Object, 'Renewable energy');
+      });
+
+      // Handle level 2 and level 3 relations
+      ['level 2', 'level 3'].forEach(level => {
+        item['knowledge graph'].relations[level].forEach(relations => {
+          const subject = relations.Subject || entity;
+          if (!transformedEdgeData[subject]) {
+            transformedEdgeData[subject] = [];
+          }
+          transformedEdgeData[subject].push({
+            Description: relations.Description,
+            Importance: relations.Importance,
+            Object: relations.Object,
+            Relation: relations.Relation,
+          });
+
+          // Add each object in level 2 and level 3 relations as entity with category 'Renewable energy'
+          addEntity(relations.Object, 'Renewable energy');
+          addEntity(relations.Subject, 'Renewable energy');
+        });
+      });
+    });
+
+    return { transformedEdgeData, entitiesArray };
+  };
+
   useEffect(() => {
     async function initGraph() {
       if (graphContainer.current) {
@@ -43,45 +104,19 @@ export default function DataGraph({
         );
       }
 
+      // uncomment below two lines when need to use hard coded data from.json file
       const resultNodes = await response1.json();
       const resultEdges = await response2.json();
 
-      const realEdgedata = {};
-      const realEntityData = [];
-
-      activeEnteties.forEach(entry => {
-        // Correct the scope and declaration of relations
-        const { relations } = entry['knowledge graph'];
-        Object.keys(relations).forEach(subject => {
-          realEdgedata[subject] = relations[subject];
-          relations[subject].forEach(relation => {
-            // Check and push subject to realEntityData if not present
-            if (!realEntityData.some(item => item.entity === subject)) {
-              realEntityData.push({
-                entity: subject,
-                category: 'Renewable energy', // Assuming all subjects fall under this category
-              });
-            }
-
-            // Check and push relation.Object to realEntityData if not present
-            if (!realEntityData.some(item => item.entity === relation.Object)) {
-              realEntityData.push({
-                entity: relation.Object,
-                category: 'Renewable energy', // Assuming all relation objects fall under this category
-              });
-            }
-          });
-        });
-      });
-
-      console.log('----resultNodes---', resultNodes);
-      console.log('----resultEdges---', resultEdges);
-
-      console.log('----realEntityData---', realEntityData);
-      console.log('----realEdgedata---', realEdgedata);
+      console.log('========Nodes', resultNodes);
+      console.log('========Edges', resultEdges);
+      const { transformedEdgeData, entitiesArray } =
+        transformData(activeEnteties);
+      console.log('New Function output----', transformedEdgeData);
+      console.log('New Function output entitiesArray----', entitiesArray);
 
       const instance = ForceGraph(
-        { nodes: realEntityData, links: realEdgedata },
+        { nodes: entitiesArray, links: transformedEdgeData },
 
         {
           containerSelector: '.graph-container',

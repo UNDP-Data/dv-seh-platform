@@ -67,6 +67,7 @@ export default function Landing() {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log('--------', state.messages);
       const fullResponse = await service.askQuestion(
         state.messages[0].message.answer,
         'full',
