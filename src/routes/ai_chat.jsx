@@ -65,23 +65,30 @@ export default function Landing() {
     return state.messages ? state.messages[1].message.kg_data : [];
   });
 
+  const [chatBoxMessage, setChatBoxMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
-      const fullResponse = await service.askQuestion(
-        state.messages[0].message.answer,
-        'full',
-      );
-      const updatedMessages = state.messages.map((msg, index) =>
-        index === 1 ? { ...msg, message: fullResponse } : msg,
-      );
+      try {
+        const fullResponse = await service.askQuestion(
+          state.messages[0].message.answer,
+          'full',
+        );
 
-      setMessages(updatedMessages);
+        const updatedMessages = state.messages.map((msg, index) =>
+          index === 1 ? { ...msg, message: fullResponse } : msg,
+        );
+        setMessages(updatedMessages);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false); // Ensure loading is set to false
+      }
     };
     fetchData();
   }, []);
 
-  const [chatBoxMessage, setChatBoxMessage] = useState('');
-  const [loading, setLoading] = useState(false);
   const handleCancel = () => {
     setPopupVisible(false);
   };
@@ -99,6 +106,9 @@ export default function Landing() {
 
   async function postMessage(userMessage) {
     // console.log(promptSuggestions);
+
+    setError(null);
+    setChatBoxMessage('');
     setLoading(true);
     let newMessages = messages.concat([
       {
@@ -115,6 +125,7 @@ export default function Landing() {
       partialResponse = await service.askQuestion(userMessage, 'partial');
       await setActiveEnteties(partialResponse.kg_data);
       responce = await service.askQuestion(userMessage, 'full');
+      console.log('----responce----', responce);
     } catch (e) {
       setLoading(false);
     }
@@ -124,15 +135,16 @@ export default function Landing() {
         source: 'api',
       },
     ]);
-
-    setPromptSuggestions(
-      responce.query_ideas.map((query_ideas, index) => {
-        return {
-          key: index.toString(),
-          label: query_ideas,
-        };
-      }),
-    );
+    if (responce.query_ideas) {
+      setPromptSuggestions(
+        responce.query_ideas.map((query_ideas, index) => {
+          return {
+            key: index.toString(),
+            label: query_ideas,
+          };
+        }),
+      );
+    }
     setMessages(newMessages);
     setLoading(false);
     setChatBoxMessage('');
@@ -175,11 +187,15 @@ export default function Landing() {
             <Row className='chat'>
               <Col xs={24} lg={{ span: 23, offset: 1 }}>
                 <div>
-                  {messages.map(({ source, message }, i) => {
-                    return (
+                  {error ? (
+                    <div style={{ color: 'red', marginTop: '10px' }}>
+                      <p>{error}</p>
+                    </div>
+                  ) : (
+                    messages.map(({ source, message }, i) => (
                       <Message source={source} message={message} key={i} />
-                    );
-                  })}
+                    ))
+                  )}
                 </div>
               </Col>
               <div ref={messagesEndRef} />

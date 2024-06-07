@@ -1,5 +1,6 @@
+/* eslint-disable */
 import { React, useState, useEffect, useRef } from 'react';
-import ForceGraph from 'graph-viz';
+import ForceGraph from '../graph/graph.js';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import DataGraphUi from './data_graph_ui';
@@ -14,74 +15,88 @@ export default function DataGraph({
 
   const graphContainer = useRef(null);
 
+  // Function to process kg_data from API and make it apt for graph_viz package parameters
+  const transformData = data => {
+    console.log(data)
+    const Nodes = [];
+    const Edges = [];
+
+    const addEntity = (entity, parent) => {
+      // Check if the entity is already present in the newentitiesArray
+      if (Nodes.map(el => el.entity).indexOf(entity) === -1) {
+        Nodes.push({
+          entity,
+          type: 'main',
+          parent,
+        });
+      }
+    };
+
+    data.forEach(item => {
+      const entity = item.metadata.Entity;
+
+      // Add metadata entity to nodes if not already present
+      if (Nodes.map(el => el.entity).indexOf(entity) === -1) {
+        Nodes.push({
+          entity,
+          type: 'main',
+          root: true,
+          parent: entity,
+        });
+      }
+
+      // let links = data['knowledge graph'].relations
+      // links.forEach(d => {
+      //   if(Nodes.map(el => el.entity).indexOf(d.Subject) === -1) {
+      //     Nodes.push({entity: d.Subject, type: 'main', parent: entity})
+      //   }
+      //   if(Nodes.map(el => el.entity).indexOf(d.Object) === -1) {
+      //     Nodes.push({entity: d.Object, type: 'main', parent: entity})
+      //   }
+      // })
+
+      // Handle level 1, 2, and 3 relations
+      ['level 1', 'level 2', 'level 3'].forEach(level => {
+        if(item['knowledge graph'].relations[level]) {
+          item['knowledge graph'].relations[level].forEach(relation => {
+            const subject = relation.Subject || entity;
+            const object = relation.Object;
+  
+            // Add relation as link
+            Edges.push({
+              Object: object,
+              Subject: subject,
+              Relation: relation.Relation,
+              Description: relation.Description,
+              Importance: relation.Importance,
+            });
+  
+            // Add each object and subject in relations as entity with category 'Renewable energy'
+            addEntity(object, entity);
+            addEntity(subject, entity);
+          });
+        }
+      });
+      
+    });
+
+    // Log the entities for debugging
+    console.log('Entities Array:', Nodes);
+    console.log('Edges Array:', Edges);
+
+    return { Nodes, Edges };
+  };
+
   useEffect(() => {
     async function initGraph() {
       if (graphContainer.current) {
         d3.select(graphContainer.current).selectAll('svg').remove(); // Destroy method provided by the third-party library
       }
 
-      const params = {
-        method: 'GET',
-        // mode: 'no-cors',
-        // credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-      /* replace /energy-entities-small.json 
-          with /energy-entities.json file
-          when larger graph is needed with all entities */
-      console.log('----activeEnteties----', activeEnteties);
-      const [response1, response2] = await Promise.all([
-        fetch('/energy-entities-small.json', params),
-        fetch('/energy-relations-small.json', params),
-      ]);
-
-      if (!response1.ok || !response2.ok) {
-        throw new Error(
-          `HTTP error! Status: ${response1.status} ${response2.status}`,
-        );
-      }
-
-      const resultNodes = await response1.json();
-      const resultEdges = await response2.json();
-
-      const realEdgedata = {};
-      const realEntityData = [];
-
-      activeEnteties.forEach(entry => {
-        // Correct the scope and declaration of relations
-        const { relations } = entry['knowledge graph'];
-        Object.keys(relations).forEach(subject => {
-          realEdgedata[subject] = relations[subject];
-          relations[subject].forEach(relation => {
-            // Check and push subject to realEntityData if not present
-            if (!realEntityData.some(item => item.entity === subject)) {
-              realEntityData.push({
-                entity: subject,
-                category: 'Renewable energy', // Assuming all subjects fall under this category
-              });
-            }
-
-            // Check and push relation.Object to realEntityData if not present
-            if (!realEntityData.some(item => item.entity === relation.Object)) {
-              realEntityData.push({
-                entity: relation.Object,
-                category: 'Renewable energy', // Assuming all relation objects fall under this category
-              });
-            }
-          });
-        });
-      });
-
-      console.log('----resultNodes---', resultNodes);
-      console.log('----resultEdges---', resultEdges);
-
-      console.log('----realEntityData---', realEntityData);
-      console.log('----realEdgedata---', realEdgedata);
+      const { Nodes, Edges } = transformData(activeEnteties);
 
       const instance = ForceGraph(
-        { nodes: realEntityData, links: realEdgedata },
+        { nodes: Nodes, links: Edges },
 
         {
           containerSelector: '.graph-container',
