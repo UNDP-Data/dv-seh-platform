@@ -22,7 +22,6 @@ export default function DataGraph({
     const Edges = [];
 
     const addEntity = (entity, parent) => {
-      console.log('======parent======', parent);
       // Check if the entity is already present in the newentitiesArray
       if (Nodes.map(el => el.entity).indexOf(entity) === -1) {
         Nodes.push({

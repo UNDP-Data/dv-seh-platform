@@ -1,32 +1,45 @@
 /* eslint-disable */
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import { Flex } from 'antd';
 import PropTypes from 'prop-types';
 
-//import SourcesModal from './sources_modal';
+import SourcesModal from './sources_modal';
 
 export default function ApiMessage({ message }) {
   const [popupVisible, setPopupVisible] = useState(false);
   const togglePopup = () => {
     setPopupVisible(!popupVisible);
   };
+  const isMessageAnswerEmpty =
+    Array.isArray(message.answers) && message.answers.length === 0;
+
+
   return (
     <div className='chat_message chat_message-api'>
       <div className='chat_message_content'>
         <div className='message_icon' />
-        <div
-          className='message_text'
-          dangerouslySetInnerHTML={{ __html: message.answer }}
-        />
+
+        {isMessageAnswerEmpty ? (
+          <div
+            className='message_text'
+            dangerouslySetInnerHTML={{ __html: 'Please try another question to get appropriate answer. Thank You!' }}
+          />
+        ) : (
+          <div
+            className='message_text'
+            dangerouslySetInnerHTML={{ __html: message.answer }}
+          />
+        )}
+
         <div className='message_interactions'>
           <button
             type='button'
-            aria-label='like responce'
+            aria-label='like response'
             className='message_interaction_button message_interactions_button-like'
           />
           <button
             type='button'
-            aria-label='dislike responce'
+            aria-label='dislike response'
             className='message_interaction_button message_interactions_button-dislike'
           />
         </div>
@@ -40,11 +53,13 @@ export default function ApiMessage({ message }) {
           className='sources_button margin-left-02'
         />
       </Flex>
-{/*       <SourcesModal
-        close={togglePopup}
-        visible={popupVisible}
-        message={message}
-      /> */}
+      {!isMessageAnswerEmpty && (
+        <SourcesModal
+          close={togglePopup}
+          visible={popupVisible}
+          message={message}
+        />
+      )}
     </div>
   );
 }

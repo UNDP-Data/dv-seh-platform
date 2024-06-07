@@ -16,7 +16,11 @@ async function askQuestion(query, type) {
         },
       },
     );
-    if (Array.isArray(resp.data.answers) && resp.data.answers.length === 0) {
+    if (
+      type === 'partial' &&
+      Array.isArray(resp.data.answers) &&
+      resp.data.answers.length === 0
+    ) {
       return {
         error: true,
         message:
