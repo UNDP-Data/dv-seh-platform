@@ -344,6 +344,10 @@ button:focus {
 .graph-ui_button:first-child {
   border-top-right-radius: 10px;
 }
+.graph-container {
+  display: flex;
+  align-items: stretch;
+}
 .ant-btn-primary {
   background-color: #019A5A;
 }

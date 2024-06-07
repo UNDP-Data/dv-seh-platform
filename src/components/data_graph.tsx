@@ -16,23 +16,33 @@ export default function DataGraph({
 
   // Function to process kg_data from API and make it apt for graph_viz package parameters
   const transformData = data => {
-    const entitiesArray = [];
-    const edgeArray = [];
-    const entitiesSet = new Set();
+    const Nodes = [];
+    const Edges = [];
 
-    const addEntity = (entity, category) => {
-      if (!entitiesSet.has(entity)) {
-        entitiesSet.add(entity);
-        entitiesArray.push({ entity, category });
+    const addEntity = (entity, parent) => {
+      console.log('======parent======', parent);
+      // Check if the entity is already present in the newentitiesArray
+      if (Nodes.map(el => el.entity).indexOf(entity) === -1) {
+        Nodes.push({
+          entity,
+          type: 'main',
+          parent,
+        });
       }
     };
 
     data.forEach(item => {
       const entity = item.metadata.Entity;
-      const category = item.metadata.Category;
 
-      // Add metadata entity to nodes
-      addEntity(entity, category);
+      // Add metadata entity to nodes if not already present
+      if (Nodes.map(el => el.entity).indexOf(entity) === -1) {
+        Nodes.push({
+          entity,
+          type: 'main',
+          root: true,
+          parent: entity,
+        });
+      }
 
       // Handle level 1, 2, and 3 relations
       ['level 1', 'level 2', 'level 3'].forEach(level => {
@@ -41,7 +51,7 @@ export default function DataGraph({
           const object = relation.Object;
 
           // Add relation as link
-          edgeArray.push({
+          Edges.push({
             Object: object,
             Subject: subject,
             Relation: relation.Relation,
@@ -50,13 +60,17 @@ export default function DataGraph({
           });
 
           // Add each object and subject in relations as entity with category 'Renewable energy'
-          addEntity(object, 'Renewable energy');
-          addEntity(subject, 'Renewable energy');
+          addEntity(object, entity);
+          addEntity(subject, entity);
         });
       });
     });
 
-    return { entitiesArray, edgeArray };
+    // Log the entities for debugging
+    console.log('Entities Array:', Nodes);
+    console.log('Edges Array:', Edges);
+
+    return { Nodes, Edges };
   };
 
   useEffect(() => {
@@ -65,12 +79,10 @@ export default function DataGraph({
         d3.select(graphContainer.current).selectAll('svg').remove(); // Destroy method provided by the third-party library
       }
 
-      const { edgeArray, entitiesArray } = transformData(activeEnteties);
-      console.log('New Function output----', edgeArray);
-      console.log('New Function output entitiesArray----', entitiesArray);
+      const { Nodes, Edges } = transformData(activeEnteties);
 
       const instance = ForceGraph(
-        { nodes: entitiesArray, links: edgeArray },
+        { nodes: Nodes, links: Edges },
 
         {
           containerSelector: '.graph-container',
