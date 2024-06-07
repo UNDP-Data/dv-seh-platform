@@ -1,5 +1,6 @@
+/* eslint-disable */
 import { React, useState, useEffect, useRef } from 'react';
-import ForceGraph from 'graph-viz';
+import ForceGraph from '../graph/graph.js';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import DataGraphUi from './data_graph_ui';
@@ -16,6 +17,7 @@ export default function DataGraph({
 
   // Function to process kg_data from API and make it apt for graph_viz package parameters
   const transformData = data => {
+    console.log(data)
     const Nodes = [];
     const Edges = [];
 
@@ -44,26 +46,39 @@ export default function DataGraph({
         });
       }
 
+      // let links = data['knowledge graph'].relations
+      // links.forEach(d => {
+      //   if(Nodes.map(el => el.entity).indexOf(d.Subject) === -1) {
+      //     Nodes.push({entity: d.Subject, type: 'main', parent: entity})
+      //   }
+      //   if(Nodes.map(el => el.entity).indexOf(d.Object) === -1) {
+      //     Nodes.push({entity: d.Object, type: 'main', parent: entity})
+      //   }
+      // })
+
       // Handle level 1, 2, and 3 relations
       ['level 1', 'level 2', 'level 3'].forEach(level => {
-        item['knowledge graph'].relations[level].forEach(relation => {
-          const subject = relation.Subject || entity;
-          const object = relation.Object;
-
-          // Add relation as link
-          Edges.push({
-            Object: object,
-            Subject: subject,
-            Relation: relation.Relation,
-            Description: relation.Description,
-            Importance: relation.Importance,
+        if(item['knowledge graph'].relations[level]) {
+          item['knowledge graph'].relations[level].forEach(relation => {
+            const subject = relation.Subject || entity;
+            const object = relation.Object;
+  
+            // Add relation as link
+            Edges.push({
+              Object: object,
+              Subject: subject,
+              Relation: relation.Relation,
+              Description: relation.Description,
+              Importance: relation.Importance,
+            });
+  
+            // Add each object and subject in relations as entity with category 'Renewable energy'
+            addEntity(object, entity);
+            addEntity(subject, entity);
           });
-
-          // Add each object and subject in relations as entity with category 'Renewable energy'
-          addEntity(object, entity);
-          addEntity(subject, entity);
-        });
+        }
       });
+      
     });
 
     // Log the entities for debugging

@@ -1,8 +1,9 @@
+/* eslint-disable */
 import { React, useState } from 'react';
 import { Flex } from 'antd';
 import PropTypes from 'prop-types';
 
-import SourcesModal from './sources_modal';
+//import SourcesModal from './sources_modal';
 
 export default function ApiMessage({ message }) {
   const [popupVisible, setPopupVisible] = useState(false);
@@ -39,11 +40,11 @@ export default function ApiMessage({ message }) {
           className='sources_button margin-left-02'
         />
       </Flex>
-      <SourcesModal
+{/*       <SourcesModal
         close={togglePopup}
         visible={popupVisible}
         message={message}
-      />
+      /> */}
     </div>
   );
 }
