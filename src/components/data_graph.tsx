@@ -99,6 +99,7 @@ export default function DataGraph({
 
   async function updateEntityGraph(entities) {
     try {
+      setError(null);
       console.log('---inside updateEntityGraph---', entities);
       let fetchReqs = [];
       entities.forEach(d => {
@@ -176,7 +177,7 @@ export default function DataGraph({
       if (graphContainer.current) {
         d3.select(graphContainer.current).selectAll('svg').remove(); // Destroy method provided by the third-party library
       }
-
+      setError(null);
       const { Nodes, Edges } = transformData(activeEnteties);
 
       const instance = ForceGraph(
