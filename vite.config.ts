@@ -23,5 +23,12 @@ export default defineConfig({
       preflightContinue: false,
       optionsSuccessStatus: 204,
     },
+    proxy: {
+      '/api': {
+        target: 'https://raw.githubusercontent.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
 });

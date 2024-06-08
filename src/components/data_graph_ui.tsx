@@ -1,8 +1,9 @@
-import { SearchOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import { Tooltip, Popover, Input, Space, Button } from 'antd';
 import PropTypes from 'prop-types';
 
 import { React, useState } from 'react';
+import { FaSearch, FaInfoCircle } from 'react-icons/fa';
 
 export default function DataGraphUi({ graphSearch }) {
   const [searchMessage, setSearchMessage] = useState('');
@@ -47,7 +48,8 @@ export default function DataGraphUi({ graphSearch }) {
             aria-label='Search graph'
             className='graph-ui_button graph-ui_button-search'
           >
-            <SearchOutlined />
+            Search
+            <FaSearch />
           </button>
         </Tooltip>
       </Popover>
@@ -57,7 +59,8 @@ export default function DataGraphUi({ graphSearch }) {
           aria-label='About graph'
           className='graph-ui_button graph-ui_button-about'
         >
-          <InfoCircleOutlined />
+          About
+          <FaInfoCircle style={{ marginLeft: '8px' }} />
         </button>
       </Tooltip>
     </div>
