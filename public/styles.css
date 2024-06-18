@@ -114,6 +114,21 @@ button:focus {
     font-size: 14px;
   }
 }
+#search-container {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  background: white;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+#search-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 .search-info-card {
   margin-bottom: 36px;
 }
@@ -333,9 +348,9 @@ button:focus {
   flex-direction: column;
 }
 .graph-ui_button {
-  background: #fff;
-  width: 40px;
-  height: 40px;
+  background: rgb(255, 253, 253);
+  width: 100px;
+  height: 30px;
   font-size: 1rem;
 }
 .graph-ui_button:hover {
