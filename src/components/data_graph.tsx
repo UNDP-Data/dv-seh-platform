@@ -7,13 +7,6 @@ import DataGraphUi from './data_graph_ui';
 
 const params = {
   method: 'GET',
-  mode: 'cors',
-  credentials: 'include',
-  headers: {
-    'Content-Type': 'application/json',
-    'Cache-Control': 'no-cache',
-    Pragma: 'no-cache',
-  },
 };
 /* eslint-disable react/forbid-prop-types */
 export default function DataGraph({
@@ -106,7 +99,7 @@ export default function DataGraph({
         const entity = d.replaceAll(' ', '%20');
         fetchReqs.push(
           fetch(
-            `/api/UNDP-Data/dsc-energy-knowledge-graph/main/00_API/${entity}.json`,
+            `https://raw.githubusercontent.com/UNDP-Data/dsc-energy-knowledge-graph/main/00_API/${entity}.json`,
             params,
           ),
         );
