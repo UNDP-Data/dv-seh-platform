@@ -272,10 +272,12 @@ export default function ForceGraph (
     //simulation.tick(Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())))
     simulation.on('tick', ticked)
 
-    const t = svg.transition().duration(550);
+    //const t = svg.transition().duration(550);
 
     const enterFunc = enter => {
-      enter.transition(t).attr("opacity", 1)
+      enter
+      //.transition(t)
+      .attr("opacity", 1)
     }
     
     const updateNodeFunc = update => {
@@ -284,7 +286,7 @@ export default function ForceGraph (
       // }   
       update
         .select('circle')
-        .transition(t)
+        //.transition(t)
         .attr('r', d => d.radius)
         .attr('fill', (d) => (nodeStyles.type === 'gradient' ? `url('#radial-gradient-${d.color}')` : (`rgb(${d.color[0]}, ${d.color[1]}, ${d.color[2]})`)))
         .attr('stroke', (d) => nodeStyles.stroke || (`rgb(${d.color[0]}, ${d.color[1]}, ${d.color[2]})`));
@@ -292,7 +294,7 @@ export default function ForceGraph (
     
     const updateLinkFunc = update => {
       update
-        .transition(t)
+        //.transition(t)
         .attr('stroke', (d) => {
           const node = showEle.nodes.find(el => el.id === d.target.id) 
           return linkStyles.stroke || `rgb(${node.color[0]}, ${node.color[1]}, ${node.color[2]})`
@@ -310,7 +312,7 @@ export default function ForceGraph (
         // Bind new data to tspans
         const tspans = text.selectAll('tspan')
           .data(splitLongText(d[labelStyles.label], maxLineLength));
-    
+        
         // Enter new tspans if needed
         tspans.enter()
           .append('tspan')
@@ -322,6 +324,11 @@ export default function ForceGraph (
         // Remove old tspans if needed
         tspans.exit().remove();
       });
+    }
+
+    function updateLinkTextFunc(selection) {
+      selection.select('text')
+        .text((d) => d[labelStyles.edge.label])
     }
       
     const exitFunc = exit => {
@@ -357,7 +364,10 @@ export default function ForceGraph (
             .attr('stroke-width', (d) => d.strokeWidth)
             .attr('d', (d) => (linkStyles.type === 'arc' ? generateArc(d, 1, true) : generatePath(d, true)))      
             .attr('opacity', 0)
-            .call(enter => enter.transition(t).attr("opacity", linkStyles.strokeOpacity)),
+            .call(enter => enter
+              //.transition(t)
+              .attr("opacity", linkStyles.strokeOpacity)
+            ),
 
         update => update.call(updateLinkFunc),
         exit => exit.call(exitFunc)
@@ -367,32 +377,32 @@ export default function ForceGraph (
       .attr('fill', 'none')
 
     // Update existing link labels
-    const linkTexts = linkTextG
-      .selectAll('text.link')
-      .data(showEle.links, (d) => d.source.id + '_' + d.target.id)
-      .join(
-        (enter) =>
-          enter
-            .append('text')
-            .attr('class', 'link')
-            // .attr('x', (d) => (d.target.x - d.source.x) / 2 + d.source.x + 10)
-            // .attr('y', (d) => (d.target.y - d.source.y) / 2 + d.source.y)
-            .attr('dy', -3)
-            .attr('opacity', 0)
-            .call(enterFunc)
-            .append('textPath')
-            .attr('visibility', labelStyles.edge.visibility)
-            .attr('xlink:href', (d, i) => '#' + d.source.id + '_' + d.target.id)
-            .attr('startOffset', '50%')
-            .attr('text-anchor', 'middle')
-            .text((d) => d[labelStyles.edge.label]),
+    // const linkTexts = linkTextG
+    //   .selectAll('text.link')
+    //   .data(showEle.links, (d) => d.source.id + '_' + d.target.id)
+    //   .join(
+    //     (enter) =>
+    //       enter
+    //         .append('text')
+    //         .attr('class', 'link')
+    //         // .attr('x', (d) => (d.target.x - d.source.x) / 2 + d.source.x + 10)
+    //         // .attr('y', (d) => (d.target.y - d.source.y) / 2 + d.source.y)
+    //         .attr('dy', -3)
+    //         .attr('opacity', 0)
+    //         .call(enterFunc)
+    //         .append('textPath')
+    //         .attr('visibility', labelStyles.edge.visibility)
+    //         .attr('xlink:href', (d, i) => '#' + d.source.id + '_' + d.target.id)
+    //         .attr('startOffset', '50%')
+    //         .attr('text-anchor', 'middle')
+    //         .text((d) => d[labelStyles.edge.label]),
 
-        update => update,
-        exit => exit.call(exitFunc)
-      )
-      .attr('opacity', labelStyles.edge.opacity)
-      .attr('fill', labelStyles.edge.color || labelStyles.color)
-      .attr('font-size', labelStyles.edge['font-size'])
+    //     (update) => update.call(updateLinkTextFunc),
+    //     exit => exit.call(exitFunc)
+    //   )
+    //   .attr('opacity', labelStyles.edge.opacity)
+    //   .attr('fill', labelStyles.edge.color || labelStyles.color)
+    //   .attr('font-size', labelStyles.edge['font-size'])
 
     // Update existing nodes
     const updatedNode = nodeG.selectAll('.node').data(showEle.nodes, (d) => d.id)
@@ -472,7 +482,7 @@ export default function ForceGraph (
       linkG.selectAll('path.link').attr('d', (d) => (linkStyles.type === 'arc' ? generateArc(d, 1, true) : generatePath(d, true)))
       nodeG.selectAll('.node').attr('transform', (d) => `translate(${d.x}, ${d.y})`)
       textG.selectAll('.label').attr('transform', (d) => `translate(${d.x}, ${d.y})`)
-      linkTextG.selectAll('.link').attr('x', (d) => (d.target.x - d.source.x) / 2 + d.source.x + 6).attr('y', (d) => (d.target.y - d.source.y) / 2 + d.source.y)
+      //linkTextG.selectAll('.link').attr('x', (d) => (d.target.x - d.source.x) / 2 + d.source.x + 6).attr('y', (d) => (d.target.y - d.source.y) / 2 + d.source.y)
     }
 
     nodeG.selectAll('.node')
@@ -568,7 +578,7 @@ export default function ForceGraph (
 
     tooltipDiv
       .style('visibility', 'visible')
-      .style('left', (x + d.radius - window.innerWidth/2).toString() + 'px')
+      .style('left', (x + d.radius).toString() + 'px')
       .style('top', (y + d.radius + 10).toString() + 'px')
   }
 
@@ -660,6 +670,7 @@ export default function ForceGraph (
   // Function to reapply event listeners to nodes
   const reapplyEventListeners = () => {
     if (eventSubscriptions.nodeClick) {
+      console.log("ALL NODES", d3.selectAll('.node'))
       d3.selectAll('.node').on('click', function (event, d) {
         eventSubscriptions.nodeClick({
           clickedNodeData: d,
@@ -704,6 +715,7 @@ export default function ForceGraph (
     /* event subscription method, provides interface for graph specific events e.g. click on node */
     on: (eventName, callback) => {
       if (eventName === 'nodeClick') {
+        console.log('callback', callback)
         eventSubscriptions.nodeClick = callback;
         // Apply the event listener to the current nodes
         reapplyEventListeners();
