@@ -109,10 +109,8 @@ export default function DataGraph({
 
       // Extract new entity json from github
       const responses = await Promise.all(fetchReqs);
-      console.log('---responses---', responses);
 
       const dataPromises = responses.map(async response => {
-        console.log('---each response---', response);
         if (response.status === 404) {
           if(errorFlag == "nodeclick"){
 
@@ -123,7 +121,6 @@ export default function DataGraph({
           }
         }
         const result = await response.json();
-        console.log('---result---', result);
         const entity = result['metadata']['Entity Code'];
 
         let nodes = [];
@@ -179,7 +176,6 @@ export default function DataGraph({
       }
       setError(null);
 
-  console.log("----before activeEnteties---", activeEnteties);
       const { Nodes, Edges } = transformData(activeEnteties);
 
       const instance = ForceGraph(
@@ -233,7 +229,6 @@ export default function DataGraph({
         const { nodes: newNodes, links: newLinks } = await updateEntityGraph([
           event.clickedNodeData.entity,
         ], "nodeclick");
-        console.log('Node clicked Data post-----:', {nodes: newNodes, links: newLinks} );
         if (newNodes.length >0 && newLinks.length >0){
 
           instance.update({
@@ -249,7 +244,6 @@ export default function DataGraph({
           const { nodes: newNodes, links: newLinks } = await updateEntityGraph([
             searchInput.value,
           ], "search");
-          console.log('post search----', newNodes, newLinks);
           searchInput.value = '';
           if (newNodes.length > 0 && newLinks.length > 0) {
             instance.update({
