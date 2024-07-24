@@ -15,13 +15,14 @@ export default function DataGraph({
   setPopupVisible,
 }) {
   // const [graph, setGraph] = useState({});
+  console.log("----activeEnteties---", activeEnteties);
   const [error, setError] = useState(null);
 
   const graphContainer = useRef(null);
 
   // Function to process kg_data from API and make it apt for graph_viz package parameters
   const transformData = data => {
-    console.log(data);
+    console.log("inside trandformData----",data);
     const Nodes = [];
     const Edges = [];
 
@@ -90,7 +91,7 @@ export default function DataGraph({
     return { Nodes, Edges };
   };
 
-  async function updateEntityGraph(entities) {
+  async function updateEntityGraph(entities, errorFlag) {
     try {
       setError(null);
       console.log('---inside updateEntityGraph---', entities);
@@ -113,7 +114,13 @@ export default function DataGraph({
       const dataPromises = responses.map(async response => {
         console.log('---each response---', response);
         if (response.status === 404) {
-          throw new Error('Please enter valid entity');
+          if(errorFlag == "nodeclick"){
+
+            throw new Error('');
+          } else if (errorFlag == "search"){
+
+            throw new Error('Please enter valid entity');
+          }
         }
         const result = await response.json();
         console.log('---result---', result);
@@ -167,10 +174,12 @@ export default function DataGraph({
 
   useEffect(() => {
     async function initGraph() {
-      if (graphContainer.current) {
+      if (activeEnteties) {
         d3.select(graphContainer.current).selectAll('svg').remove(); // Destroy method provided by the third-party library
       }
       setError(null);
+
+  console.log("----before activeEnteties---", activeEnteties);
       const { Nodes, Edges } = transformData(activeEnteties);
 
       const instance = ForceGraph(
@@ -223,11 +232,15 @@ export default function DataGraph({
         console.log('Node clicked Data:', event.clickedNodeData);
         const { nodes: newNodes, links: newLinks } = await updateEntityGraph([
           event.clickedNodeData.entity,
-        ]);
-        instance.update({
-          nodes: newNodes,
-          links: newLinks,
-        });
+        ], "nodeclick");
+        console.log('Node clicked Data post-----:', {nodes: newNodes, links: newLinks} );
+        if (newNodes.length >0 && newLinks.length >0){
+
+          instance.update({
+            nodes: newNodes,
+            links: newLinks,
+          });
+        }
       });
 
       const searchInput = document.getElementById('search-input');
@@ -235,7 +248,7 @@ export default function DataGraph({
         if (event.key === 'Enter' || event.keyCode === 13) {
           const { nodes: newNodes, links: newLinks } = await updateEntityGraph([
             searchInput.value,
-          ]);
+          ], "search");
           console.log('post search----', newNodes, newLinks);
           searchInput.value = '';
           if (newNodes.length > 0 && newLinks.length > 0) {
