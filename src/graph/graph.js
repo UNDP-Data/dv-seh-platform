@@ -583,7 +583,7 @@ export default function ForceGraph (
   tooltipDiv
     .style('visibility', 'visible')
     .style('left', `${x + 200}px`)  // Adjust the tooltip position as needed
-    .style('top', `${y + 300}px`);  // Adjust the tooltip position as needed
+    .style('top', `${y + 500}px`);  // Adjust the tooltip position as needed
 
   }
 
