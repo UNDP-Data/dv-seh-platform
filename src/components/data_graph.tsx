@@ -13,10 +13,12 @@ export default function DataGraph({
   activeEnteties,
   setPopupData,
   setPopupVisible,
+  setEntityChatDetails,
 }) {
   // const [graph, setGraph] = useState({});
   console.log("----activeEnteties---", activeEnteties);
   const [error, setError] = useState(null);
+  const [entityDetails, setentityDetails] = useState({});
 
   const graphContainer = useRef(null);
 
@@ -106,25 +108,30 @@ export default function DataGraph({
         );
       });
       console.log('---fetchReqs---', fetchReqs);
-
+  
       // Extract new entity json from github
       const responses = await Promise.all(fetchReqs);
-
+  
       const dataPromises = responses.map(async response => {
         if (response.status === 404) {
-          if(errorFlag == "nodeclick"){
-
+          if(errorFlag === "nodeclick") {
             throw new Error('');
-          } else if (errorFlag == "search"){
-
+          } else if (errorFlag === "search") {
             throw new Error('Please enter valid entity');
           }
         }
         const result = await response.json();
+        console.log('-----result----', result);
+  
+        let entitychatDetails = {};
+        entitychatDetails['Entity Title'] = result['metadata']['Entity Title'];
+        entitychatDetails['Description'] = result['metadata']['Description'];
+        console.log('---entityDetails---', entitychatDetails);
+  
         const entity = result['metadata']['Entity Code'];
-
+  
         let nodes = [];
-
+  
         let entities = result['knowledge graph'].entities;
         entities.map(d => {
           nodes.push({
@@ -134,7 +141,7 @@ export default function DataGraph({
           });
         });
         nodes.push({ entity, type: 'main', root: true, parent: entity });
-
+  
         let links = result['knowledge graph'].relations;
         links.forEach(d => {
           if (nodes.map(el => el.entity).indexOf(d.Subject) === -1) {
@@ -144,30 +151,32 @@ export default function DataGraph({
             nodes.push({ entity: d.Object, type: 'main', parent: entity });
           }
         });
-
+  
         let sub_entities = result['knowledge graph']['sub-elements'];
         sub_entities.map(d => {
           nodes.push({ entity: d, type: 'sub', parent: entity });
         });
-
-        // Returning the constructed nodes and links for each entity
-        return { nodes, links };
+  
+        // Returning the constructed nodes, links, and entity chat details for each entity
+        return { nodes, links, entitychatDetails };
       });
-
+  
       // Wait for all data promises to resolve
       const dataArray = await Promise.all(dataPromises);
-
+  
       // Flatten the array of nodes and links
       const flatNodes = dataArray.flatMap(data => data.nodes);
       const flatEdges = dataArray.flatMap(data => data.links);
-
-      return { nodes: flatNodes, links: flatEdges };
+      const flatEntityChatDetails = dataArray.map(data => data.entitychatDetails);
+  
+      return { nodes: flatNodes, links: flatEdges, entitychatDetails: flatEntityChatDetails };
     } catch (err) {
       console.log('Error updating entity graph:', err);
       setError(err.message);
-      return { nodes: [], links: [] }; // Return empty nodes and links in case of an error
+      return { nodes: [], links: [], entitychatDetails: [] }; // Return empty nodes, links, and entity chat details in case of an error
     }
   }
+  
 
   useEffect(() => {
     async function initGraph() {
@@ -226,15 +235,19 @@ export default function DataGraph({
       }); */
       instance.on('nodeClick', async event => {
         console.log('Node clicked Data:', event.clickedNodeData);
-        const { nodes: newNodes, links: newLinks } = await updateEntityGraph([
+        const { nodes: newNodes, links: newLinks, entitychatDetails } = await updateEntityGraph([
           event.clickedNodeData.entity,
         ], "nodeclick");
+
+      console.log('---entitychatDetails---', entitychatDetails);
         if (newNodes.length >0 && newLinks.length >0){
 
           instance.update({
             nodes: newNodes,
             links: newLinks,
           });
+
+        setEntityChatDetails(entitychatDetails);
         }
       });
 
@@ -255,7 +268,7 @@ export default function DataGraph({
       });
     }
     initGraph();
-  }, [activeEnteties]);
+  }, [activeEnteties, setEntityChatDetails]);
 
   return (
     <div

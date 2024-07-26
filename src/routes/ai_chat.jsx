@@ -8,13 +8,20 @@ import DataGraph from '../components/data_graph.tsx';
 import ApiMessage from '../components/api_message.tsx';
 import UserMessage from '../components/user_message.tsx';
 import EntityModal from '../components/entity_modal.tsx';
+import EntityMessage from '../components/entity_message.tsx';
 
-function Message({ message, source }) {
-  return source === `api` ? (
-    <ApiMessage message={message} />
-  ) : (
-    <UserMessage message={message} />
-  );
+// eslint-disable-next-line prettier/prettier
+function Message({ source, message }) {
+  switch (source) {
+    case 'api':
+      return <ApiMessage message={message} />;
+    case 'user':
+      return <UserMessage message={message} />;
+    case 'entity':
+      return <EntityMessage message={message} />;
+    default:
+      return null;
+  }
 }
 
 Message.propTypes = {
@@ -24,13 +31,19 @@ Message.propTypes = {
   source: PropTypes.string,
 };
 
-function DataGraphContainer({ activeEnteties, setPopupData, setPopupVisible }) {
+function DataGraphContainer({
+  activeEnteties,
+  setPopupData,
+  setPopupVisible,
+  setEntityChatDetails,
+}) {
   return (
     <Col xs={0} lg={12}>
       <DataGraph
         activeEnteties={activeEnteties}
         setPopupData={setPopupData}
         setPopupVisible={setPopupVisible}
+        setEntityChatDetails={setEntityChatDetails}
       />
     </Col>
   );
@@ -40,6 +53,7 @@ DataGraphContainer.propTypes = {
   activeEnteties: PropTypes.arrayOf(PropTypes.object),
   setPopupData: PropTypes.func,
   setPopupVisible: PropTypes.func,
+  setEntityChatDetails: PropTypes.func,
 };
 
 export default function Landing() {
@@ -68,6 +82,8 @@ export default function Landing() {
   const [chatBoxMessage, setChatBoxMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [entityChatDetails, setEntityChatDetails] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -88,6 +104,21 @@ export default function Landing() {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (entityChatDetails) {
+      const newMessage = messages.concat([
+        {
+          message: {
+            answer: entityChatDetails[0],
+          },
+          source: 'entity',
+        },
+      ]);
+      console.log('inside use effect newMessage--', newMessage);
+      setMessages(newMessage);
+    }
+  }, [entityChatDetails]);
 
   const handleCancel = () => {
     setPopupVisible(false);
@@ -249,6 +280,7 @@ export default function Landing() {
           activeEnteties={activeEnteties}
           setPopupData={setPopupData}
           setPopupVisible={setPopupVisible}
+          setEntityChatDetails={setEntityChatDetails}
         />
       </Row>
     </Flex>
