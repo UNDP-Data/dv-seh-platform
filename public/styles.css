@@ -236,11 +236,36 @@ button:focus {
   font-weight: 300;
   display: flex;
 }
+
+.entity-message-container {
+  padding: 10px;
+  border-radius: 5px;
+  padding-left: 90px;
+  margin: 10px 0;
+  color: white; /* Ensure text is readable on brown background */
+  font-family: Arial, sans-serif; /* Set a font family if desired */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a slight shadow for depth */
+}
+
+.entity-message-container h3 {
+  margin: 0; 
+  margin-bottom: 10px; /* Add space between header and paragraph */
+  font-size: 18px; /* Adjust the font size if needed */
+}
+
+.entity-message-container p {
+  margin: 0;
+  font-size: 14px; /* Adjust the font size if needed */
+}
+
 .chat_message-api {
   background: #343541;
 }
 .chat_message-user {
   background: #444654;
+}
+.chat_message-entity {
+  background: #674400;
 }
 .message_icon {
   min-width: 30px;

@@ -487,7 +487,7 @@ export default function ForceGraph (
 
     nodeG.selectAll('.node')
       .on('mouseover', function (event, dd) {
-        updateTooltip(event, dd) // show tooltip on mouseover any node
+        updateTooltip.call(this,event, dd) // show tooltip on mouseover any node
         d3.select(this).select('circle').transition().delay(500).duration(500).attr('r', (d) => d.radius * 1.2)
         d3.select('.label-' + dd.id.replaceAll(' ', '-')).transition().duration(500).attr('visibility', 'visible')
       })
@@ -573,13 +573,18 @@ export default function ForceGraph (
       tooltipDiv.html(`${contentStr}`)
     }
 
-    // const bbox = d3.select(".tooltip").node().getBoundingClientRect()
-    const [x, y] = d3.pointer(event, d3.select('.graph-svg-container'));
+     // Get the bounding box of the node to position the tooltip
+  const node = d3.select(this);
+  const transform = node.attr("transform");
+  const translate = transform.substring(transform.indexOf("(") + 1, transform.indexOf(")")).split(",");
+  const x = parseFloat(translate[0]);
+  const y = parseFloat(translate[1]);
 
-    tooltipDiv
-      .style('visibility', 'visible')
-      .style('left', (x + d.radius).toString() + 'px')
-      .style('top', (y + d.radius + 10).toString() + 'px')
+  tooltipDiv
+    .style('visibility', 'visible')
+    .style('left', `${x + 200}px`)  // Adjust the tooltip position as needed
+    .style('top', `${y + 500}px`);  // Adjust the tooltip position as needed
+
   }
 
   function updateLinkTooltip (event, d) {
